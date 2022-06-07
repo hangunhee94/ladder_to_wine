@@ -53,9 +53,9 @@ def wine_detail_view(request, id):
 
 
 @login_required
-def create_review(request):
+def create_review(request, id):
     author = request.user
-    wine = WineModel.opjects.get()## name or pk
+    wine = WineModel.opjects.get(id=id)
     content = request.POST.get('content')
 
     ## rating model 업데이트 먼저
