@@ -3,6 +3,10 @@ from .models import RatingModel, WineModel, ReviewModel
 import requests
 from bs4 import BeautifulSoup
 import re
+from django.contrib.auth import get_user_model # 사용자가 데이터 베이스 안에 있는지 검사하는 함수
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -48,7 +52,7 @@ def wine_detail_view(request, id):
     return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews})
 
 
-
+@login_required
 def create_review(request):
     author = request.user
     wine = WineModel.opjects.get()## name or pk
@@ -76,10 +80,30 @@ def create_review(request):
     return redirect()
 
 
+@login_required
+def edit_review(request, id):
+    review_model = ReviewModel.objects.get(id=id)
+    author = request.user
+    content = request.POST.get('content')
+    rating = request.POST.get('rating')
+
+    rating_model = RatingModel.objects.get(author=author, wine=review_model.wine)
+    rating_model.rating = rating
+    rating_model.save()
+
+    review_model.content = content
+    review_model.rating = rating
+    review_model.save()
+
+    return redirect()
 
 
+@login_required
+def delete_review(request, id):
+    review_model = ReviewModel.objects.get(id=id)
+    review_model.delete()
 
-
+    return redirect()
 
 
 
