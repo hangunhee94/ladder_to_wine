@@ -1,0 +1,25 @@
+<h1>test</h1>
+
+
+<h3>{{ wine.name }}</h3>
+<h3>{{ wine.year }}</h3>
+
+<h3>{{ src }}</h3>
+<img src="{{src}}" alt="image place">
+<img src={{src}} alt="image place">
+<img src=src alt="image place">
+<img src="src" alt="image place">
+
+<h3>{{ wine.nation }}</h3>
+<h3>{{ wine.type }}</h3>
+<h3>{{ wine.degree }}</h3>
+<h3>{{ wine.price }}</h3>
+<h3>{{ av_rating }}</h3>
+
+<hr>
+
+{% for review in reviews %}
+<h3>{{ review.author }}</h3>
+<h3>{{ review.rating.rating }}</h3>
+<h3>{{ review.content }}</h3>
+{% endfor %}
