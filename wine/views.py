@@ -54,11 +54,20 @@ def wine_detail_view(request, id):
         exist = 1
     print(exist)
 
+    # wish 기능
+    user = request.user
+    click_wish = user.wine_wish.all()
+    
+    # if wine in click_wish:
+    #     user.wine_wish.remove(wine)
+    # else:
+    #     user.wine_wish.add(wine)
+
+
     # 추천 와인
 
 
-
-    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist})
+    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist, 'click_wish':click_wish})
 
 
 @login_required
