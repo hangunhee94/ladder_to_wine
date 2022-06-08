@@ -5,18 +5,18 @@ My HOME
 {% endblock %}
 {% block content %}
 {% if not user.is_authenticated %}
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="/sign-in"> Sign In <span class="sr-only"></span></a>
+<ul class="">
+    <li class="">
+        <a class="" href="/sign-in"> Sign In <span class=""></span></a>
     </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/sign-up"> Sign Up <span class="sr-only"></span></a>
+    <li class="">
+        <a class="" href="/sign-up"> Sign Up <span class=""></span></a>
     </li>
 </ul>
 {% else %}
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item disabled">
-        <span class="nav-link">
+<ul class="">
+    <li class="">
+        <span class="">
             {{ user.username }} 님 반갑습니다.
         </span>
     </li>
