@@ -43,23 +43,33 @@ def wine_detail_view(request, id):
         av_rating = float(wine.av_rating)
 
     # 리뷰
-    reviews = ReviewModel.objects.order_by('-created_at')
+    reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
+
+    # 기존 작성 리뷰 여부
+    review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
+    print(review_exist)
+    if len(review_exist) == 0:
+        exist = 0
+    else:
+        exist = 1
+    print(exist)
 
     # 추천 와인
 
 
 
-    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews})
+    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist})
 
 
 @login_required
 def create_review(request, id):
     author = request.user
-    wine = WineModel.opjects.get(id=id)
+    wine = WineModel.objects.get(id=id)
     content = request.POST.get('content')
 
     ## rating model 업데이트 먼저
     rating = request.POST.get('rating')
+    
     rating_model = RatingModel(author=author, wine=wine, rating=rating)
     rating_model.save()
 
@@ -68,7 +78,7 @@ def create_review(request, id):
     review.save()
 
     # wine정보에서 av_rating 변경
-    rating_list = RatingModel.objdects.filter(wine=wine)
+    rating_list = RatingModel.objects.filter(wine=wine)
     rating = 0
     for i in range(0, len(rating_list)):
         rating += rating_list[i].rating
@@ -76,13 +86,20 @@ def create_review(request, id):
     wine.av_rating = rating/len(rating_list)
     wine.save()
 
-
-    return redirect()
+    return redirect('wines:wine_detail_view', id)
 
 
 @login_required
-def edit_review(request, id):
-    review_model = ReviewModel.objects.get(id=id)
+def to_edit_review(request, review_id, wine_id):
+
+    return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id})
+
+
+
+
+@login_required
+def edit_review(request, review_id, wine_id):
+    review_model = ReviewModel.objects.get(id=review_id)
     author = request.user
     content = request.POST.get('content')
     rating = request.POST.get('rating')
@@ -92,18 +109,49 @@ def edit_review(request, id):
     rating_model.save()
 
     review_model.content = content
-    review_model.rating = rating
+    review_model.rating = rating_model
     review_model.save()
 
-    return redirect()
+    # wine정보에서 av_rating 변경
+    wine = WineModel.objects.get(id=wine_id)
+
+    rating_list = RatingModel.objects.filter(wine=wine)
+    rating = 0
+    for i in range(0, len(rating_list)):
+        rating += rating_list[i].rating
+    
+    wine.av_rating = rating/len(rating_list)
+    wine.save()
+
+    return redirect('wines:wine_detail_view', wine_id)
 
 
 @login_required
-def delete_review(request, id):
-    review_model = ReviewModel.objects.get(id=id)
+def delete_review(request, review_id, wine_id):
+
+    wine = WineModel.objects.get(id=wine_id)
+
+    # review model 에서 삭제
+    review_model = ReviewModel.objects.get(id=review_id)
     review_model.delete()
 
-    return redirect()
+    # rating model 에서 삭제
+    rating_model = RatingModel.objects.get(author=request.user, wine=wine)
+    rating_model.delete()
+
+    # wine정보에서 av_rating 변경
+    rating_list = RatingModel.objects.filter(wine=wine)
+    rating = 0
+    if len(rating_list) == 0:
+        wine.av_rating = 0
+    else:
+        for i in range(0, len(rating_list)):
+            rating += rating_list[i].rating
+        
+        wine.av_rating = rating/len(rating_list)
+    wine.save()
+
+    return redirect('wines:wine_detail_view', wine_id)
 
 
 
@@ -157,11 +205,11 @@ def add(request):
 
         wine.year = df['year'][i]
         wine.type = df['type'][i]
-        wine.degree = df['degree'][i]
-        wine.sweet = df['sweet'][i]
-        wine.acidity = df['acidity'][i]
-        wine.body = df['body'][i]
-        wine.tannin = df['tannin'][i]
+        wine.degree = 0
+        wine.sweet = 0
+        wine.acidity = 0
+        wine.body = 0
+        wine.tannin = 0
         wine.price = df['price'][i]
         wine.av_rating = 0
         
