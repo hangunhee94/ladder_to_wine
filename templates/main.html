@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +16,14 @@
 
 <body>
     <h1>안녕하세요</h1>
+    {% for wine in wines %}
+    <p>{{ wine.name }}</p>
+    <p>{{ wine.year }}년</p>
+    <p>{{ wine.producer }}</p>
+    <p>{{ wine.price }} 원</p>
+    <br>
+    {% endfor %}
 </body>
 
 </html>
+{% endblock %}

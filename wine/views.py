@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import redirect, render
 from .models import RatingModel, WineModel, ReviewModel
 import requests
@@ -11,8 +12,20 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    
-    return render(request, 'main.html')
+    wine_ids = WineModel.objects.all().values('id')
+
+    wines = []
+    for i in range(4):
+        if len(wine_ids) > 0:
+            random_id = random.choice(wine_ids)["id"]
+
+            try:
+                wine = WineModel.objects.get(pk=random_id)
+                wines.append(wine)
+            except wine.DoesNotExist:
+                wine = None
+    print(wines)
+    return render(request, 'main.html', {'wines': wines})
 
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
