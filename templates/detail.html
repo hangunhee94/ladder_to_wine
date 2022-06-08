@@ -16,47 +16,39 @@
 <h3>{{ wine.price }}</h3>
 <h3>{{ av_rating }}</h3>
 
+{% if exist == 0 %}
 <hr>
-<form action="{% url 'wines:create_review' %}" method="post">
+<form action="{% url 'wines:create_review' wine.id %}" method="post">
     {% csrf_token %}
 <label for="rating">
     Rating
-    <input type="number" name="ratings" min="0" max="5">
 </label>
+    <input type="number" step="0.1" name="rating" min="0" max="5" />
 <label for="content">
     Review
-    <input type="text" name="content">
 </label>
+    <input type="text" name="content" />
 <button>Submit</button>
 </form>
-
+{% endif %}
 
 <hr>
 {% for review in reviews %}
-<!-- <h3>{{ review.author.username }}</h3> -->
 <h3>{{ review.rating.rating }}</h3>
 <h3>{{ review.content }}</h3>
 <div style="text-align: right">
     <span style="font-size: small">{{ review.author.username }}-{{ review.created_at|timesince }} 전</span>
 </div>
+
+{% if review.author == user %}
 <div style="float: right">
-    <a href="/wine/review/edit/{{ review.id }}">
+    <a href="{% url 'wines:edit_review' review.id %}">
         <span class="badge bg-danger">수정</span>
     </a>
-    <a href="/wine/review/delete/{{ review.id }}">
+    <a href="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}">
         <span class="badge bg-danger">삭제</span>
     </a>
 </div>
 
-<!-- {% if review.author == user %} -->
-<div style="float: right">
-    <a href="/wine/review/edit/{{ review.id }}">
-        <span class="badge bg-danger">수정</span>
-    </a>
-    <a href="/wine/review/delete/{{ review.id }}">
-        <span class="badge bg-danger">삭제</span>
-    </a>
-</div>
-
-<!-- {% endif%} -->
+{% endif%}
 {% endfor %}
