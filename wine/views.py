@@ -11,6 +11,48 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+def wine_crawling(target_wine):
+    
+    for i in range(0, 4):
+        name_split_list = target_wine[i].name.split(',')
+        search_name = '+'.join(name_split_list)
+        year = target_wine[i].year
+        url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
+
+        headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
+        wine = requests.get(url, headers=headers)
+        soup = BeautifulSoup(wine.content, 'html.parser')
+
+        try:
+            wine_av = soup.select_one('.average__number').text
+            wine_av = wine_av.strip('\n')
+        except:
+            wine_av = 0.0
+        # target_wine.loc[i,'av_rating'] = wine_av
+
+        try:
+            target_element = soup.select_one('figure')['style']
+        except:
+            target_element = 0.0
+        try:
+            img_url = re.findall('\(([^)]+)', target_element)
+            img_url = img_url[0].replace('//', '')
+        except:
+            img_url = 0.0
+
+        # target_wine.loc[i,'img_url'] = img_url
+
+        try:
+            target_wine[i].av_rating = wine_av
+            target_wine[i].img_url = img_url
+        except:
+            print('error')
+
+        # print(i, "/", wine_av, " / ", img_url)
+    
+    return target_wine
+
+
 def home(request):
     wine_ids = WineModel.objects.all().values('id')
 
@@ -24,8 +66,13 @@ def home(request):
                 wines.append(wine)
             except wine.DoesNotExist:
                 wine = None
-    print(wines)
-    return render(request, 'main.html', {'wines': wines})
+
+    target_wine = wine_crawling(wines)
+
+    # for i in range(0,4):
+    #     print(target_wine[i].img_url)
+    
+    return render(request, 'main.html', {'wines': target_wine})
 
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
@@ -35,7 +82,7 @@ def wine_detail_view(request, id):
     search_name = '+'.join(name_split_list)
     year = wine.year
 
-    url = f'https://www.vivino.com/search/wines?q={search_name}+{year}' 
+    url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
 
     wine_info = requests.get(url, headers=headers)
@@ -121,7 +168,6 @@ def delete_review(request, id):
     review_model.delete()
 
     return redirect()
-
 
 
 

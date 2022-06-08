@@ -17,11 +17,14 @@
 <body>
     <h1>안녕하세요</h1>
     {% for wine in wines %}
-    <p>{{ wine.name }}</p>
-    <p>{{ wine.year }}년</p>
-    <p>{{ wine.producer }}</p>
-    <p>{{ wine.price }} 원</p>
-    <br>
+    <a>
+        <img src="https://{{ wine.img_url }}" width="200" alt="image place">
+        <p>{{ wine.av_rating }}</p>
+        <p>{{ wine.price }} 원</p>
+        <p>{{ wine.producer }}</p>
+        <p>{{ wine.name }} {{ wine.year }}</p>
+        <p>{{ wine.local2 }}, {{ wine.local1 }}</p>
+    </a>
     {% endfor %}
 </body>
 
