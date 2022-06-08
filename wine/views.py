@@ -130,7 +130,7 @@ import pandas as pd
 
 def add(request):
     print('start')
-    df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine\\wines_year_price_0_drop (1).csv').drop('Unnamed: 0', axis=1)
+    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
 
     for i in range(0, 100):
 

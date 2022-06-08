@@ -17,17 +17,17 @@
 <h3>{{ av_rating }}</h3>
 
 <hr>
-<form action="{% url 'wines:create_review' %}" method="post">
+<form action="{% url 'wines:create_review' 2 %}" method="post">
     {% csrf_token %}
-<label for="rating">
-    Rating
-    <input type="number" name="ratings" min="0" max="5">
-</label>
-<label for="content">
-    Review
-    <input type="text" name="content">
-</label>
-<button>Submit</button>
+    <label for="rating">
+        Rating
+        <input type="number" name="ratings" min="0" max="5">
+    </label>
+    <label for="content">
+        Review
+        <input type="text" name="content">
+    </label>
+    <button>Submit</button>
 </form>
 
 

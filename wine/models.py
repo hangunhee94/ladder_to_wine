@@ -38,7 +38,7 @@ class WineModel(models.Model):
     price = models.IntegerField(default='')
     av_rating = models.FloatField(max_length=256, default='')
 
-    wish = models.ManyToManyField(UserModel)
+    wish = models.ManyToManyField(UserModel, related_name='wine_wish')
 
 
 
