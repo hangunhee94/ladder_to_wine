@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+def home(request):
+    
+    return render(request, 'main.html')
+
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
 
