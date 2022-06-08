@@ -90,8 +90,16 @@ def create_review(request, id):
 
 
 @login_required
-def edit_review(request, id):
-    review_model = ReviewModel.objects.get(id=id)
+def to_edit_review(request, review_id, wine_id):
+
+    return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id})
+
+
+
+
+@login_required
+def edit_review(request, review_id, wine_id):
+    review_model = ReviewModel.objects.get(id=review_id)
     author = request.user
     content = request.POST.get('content')
     rating = request.POST.get('rating')
@@ -101,10 +109,21 @@ def edit_review(request, id):
     rating_model.save()
 
     review_model.content = content
-    review_model.rating = rating
+    review_model.rating = rating_model
     review_model.save()
 
-    return redirect('wines:wine_detail_view', id)
+    # wine정보에서 av_rating 변경
+    wine = WineModel.objects.get(id=wine_id)
+
+    rating_list = RatingModel.objects.filter(wine=wine)
+    rating = 0
+    for i in range(0, len(rating_list)):
+        rating += rating_list[i].rating
+    
+    wine.av_rating = rating/len(rating_list)
+    wine.save()
+
+    return redirect('wines:wine_detail_view', wine_id)
 
 
 @login_required
