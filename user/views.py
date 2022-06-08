@@ -48,3 +48,4 @@ def sign_in_view(request):
 def logout(request):
     auth.logout(request)
     return redirect('/sign-in')
+
