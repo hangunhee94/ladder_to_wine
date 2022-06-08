@@ -1,0 +1,62 @@
+<h1>test</h1>
+
+
+<h3>{{ wine.name }}</h3>
+<h3>{{ wine.year }}</h3>
+
+<h3>{{ src }}</h3>
+<img src="http://{{src}}" alt="image place">
+<!-- <img src={{src}} alt="image place">
+<img src=src alt="image place">
+<img src="src" alt="image place">
+ -->
+<h3>{{ wine.nation }}</h3>
+<h3>{{ wine.type }}</h3>
+<h3>{{ wine.degree }}</h3>
+<h3>{{ wine.price }}</h3>
+<h3>{{ av_rating }}</h3>
+
+<hr>
+<form action="{% url 'wines:create_review' %}" method="post">
+    {% csrf_token %}
+<label for="rating">
+    Rating
+    <input type="number" name="ratings" min="0" max="5">
+</label>
+<label for="content">
+    Review
+    <input type="text" name="content">
+</label>
+<button>Submit</button>
+</form>
+
+
+<hr>
+{% for review in reviews %}
+<!-- <h3>{{ review.author.username }}</h3> -->
+<h3>{{ review.rating.rating }}</h3>
+<h3>{{ review.content }}</h3>
+<div style="text-align: right">
+    <span style="font-size: small">{{ review.author.username }}-{{ review.created_at|timesince }} 전</span>
+</div>
+<div style="float: right">
+    <a href="/wine/review/edit/{{ review.id }}">
+        <span class="badge bg-danger">수정</span>
+    </a>
+    <a href="/wine/review/delete/{{ review.id }}">
+        <span class="badge bg-danger">삭제</span>
+    </a>
+</div>
+
+<!-- {% if review.author == user %} -->
+<div style="float: right">
+    <a href="/wine/review/edit/{{ review.id }}">
+        <span class="badge bg-danger">수정</span>
+    </a>
+    <a href="/wine/review/delete/{{ review.id }}">
+        <span class="badge bg-danger">삭제</span>
+    </a>
+</div>
+
+<!-- {% endif%} -->
+{% endfor %}
