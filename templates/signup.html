@@ -4,38 +4,60 @@
 회원가입
 {% endblock %}
 {% block content %}
-<div class="container">
-    <div class="wrap">
-        <h2 class="title-center"> 회원가입 </h2>
-        <form class="form-area" method="post" action="/sign-up/">
-            {% csrf_token %}
-            <div class="form-group mt-2 mb-2">
-                <label for="username">아이디</label>
-                <input type="text" class="form-control" id="username" name="username">
-            </div>
-            <div class="form-group mt-2 mb-2">
-                <label for="bio">닉네임</label>
-                <input type="text" class="form-control" id="nickname" name="nickname">
-            </div>
-            <div class="form-group mt-2 mb-2">
-                <label for="password">비밀번호</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <div class="form-group mt-2 mb-2">
-                <label for="password2">비밀번호 확인</label>
-                <input type="password" class="form-control" id="password2" name="password2">
-            </div>
-            {% if error %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endif %}
-            <hr>
-            <div style="float: right">
-                <button type="submit" class="btn btn-primary">회원가입</button>
-            </div>
-        </form>
+<div id="con">
+    <div id="login">
+        <div id="login_form">
+            <!--로그인 폼-->
+            <form method="post" action="/sign-up/">
+                {% csrf_token %}
+                <h3 class="login" style="letter-spacing:-1px;">Ladder to Wine</h3>
+                <hr>
+                <!-- <span>ID</span> -->
+                <p style="text-align: left; font-size:12px; color:#666">username</p>
+                <input type="text" placeholder="아이디" class="size" id="username" name="username">
+                <p></p>
+                </label>
+                <!--아이디-->
 
-    </div>
+                <label>
+                    <!-- <span>PW</span> -->
+                    <p style="text-align: left; font-size:12px; color:#666">nickname</p>
+                    <input type="text" placeholder="닉네임" class="size" id="nickname" name="nickname">
+                </label>
+                <!--닉네임-->
+
+                <label>
+                    <!-- <span>PW</span> -->
+                    <p style="text-align: left; font-size:12px; color:#666">Password </p>
+                    <input type="password" placeholder="비밀번호" class="size" id="password" name="password">
+                </label>
+                <!--비밀번호-->
+
+                <label>
+                    <!-- <span>PW</span> -->
+                    <p style="text-align: left; font-size:12px; color:#666"> </p>
+                    <input type="password" placeholder="비밀번호 확인" class="size" id="password2" name="password2">
+                </label>
+                <!--비밀번호 확인-->
+
+
+                
+                <br>
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                <p>
+                    <button type="submit" class="btn btn-primary">회원가입</button>
+                </p>
+            </form>
+
+            <hr>
+            <p class="find">
+                <span><a href="/sign-in">로그인 페이지로 이동</a></span>
+            </p>
+        </div>
+    <div>
 </div>
 {% endblock %}
