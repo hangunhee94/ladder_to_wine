@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+검색
+{% endblock %}
+{% block content %}
+
+    {% if searched %}
+        <br>
+        <br>
+        <div>
+            <h1> 검색하신 {{ searched }} 정보입니다. </h1>
+        </div>
+        <br>
+        {% for WineModel in winename %}
+            <a href="/wine/{{ WineModel.id }}"> {{ WineModel.name }} </a> <br>
+        {% endfor %}
+    {% else %}
+        <div>
+            <br>
+            <br>
+            <h1> 찾고 있는 와인을 검색창에 입력해주세요. </h1>
+        </div>    
+    {% endif %}
+
+{% endblock %}

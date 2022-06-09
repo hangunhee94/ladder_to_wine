@@ -1,4 +1,15 @@
 <h1>test</h1>
+<!-- 사용자 리스트 반복문 -->
+
+{% csrf_token %}
+<div class="">
+    {% if wine in click_wish %}
+    <a href="{% url 'users:post_wish' id=wine.id code=1 %}" class="">[찜 취소]</a>
+    {% else %}
+    <a href="{% url 'users:post_wish' id=wine.id code=1 %}" class="">[찜하기]</a>
+    {% endif %}
+</div>
+<hr>
 
 
 <h3>{{ wine.name }}</h3>
@@ -20,15 +31,15 @@
 <hr>
 <form action="{% url 'wines:create_review' wine.id %}" method="post">
     {% csrf_token %}
-<label for="rating">
-    Rating
-</label>
+    <label for="rating">
+        Rating
+    </label>
     <input type="number" step="0.1" name="rating" min="0" max="5" />
-<label for="content">
-    Review
-</label>
+    <label for="content">
+        Review
+    </label>
     <input type="text" name="content" />
-<button>Submit</button>
+    <button>Submit</button>
 </form>
 {% endif %}
 

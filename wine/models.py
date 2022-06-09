@@ -8,6 +8,7 @@ class WineModel(models.Model):
     class Meta:
         db_table = "wines"
 
+    product_id = models.CharField(max_length=256, default='')
     name = models.CharField(max_length=256, default='')
     producer = models.CharField(max_length=256, default='')
     nation = models.CharField(max_length=256, default='')
@@ -22,21 +23,25 @@ class WineModel(models.Model):
     varieties4 = models.CharField(max_length=256, default='')
     varieties5 = models.CharField(max_length=256, default='')
     varieties6 = models.CharField(max_length=256, default='')
-    varieties7 = models.CharField(max_length=256, default='')
-    varieties8 = models.CharField(max_length=256, default='')
-    varieties9 = models.CharField(max_length=256, default='')
-    varieties10 = models.CharField(max_length=256, default='')
-    varieties11 = models.CharField(max_length=256, default='')
+    # varieties7 = models.CharField(max_length=256, default='')
+    # varieties8 = models.CharField(max_length=256, default='')
+    # varieties9 = models.CharField(max_length=256, default='')
+    # varieties10 = models.CharField(max_length=256, default='')
+    # varieties11 = models.CharField(max_length=256, default='')
 
-    year = models.IntegerField(default='')
     type = models.CharField(max_length=256, default='')
+    use = models.CharField(max_length=256, default='')
+    abv = models.FloatField(max_length=256, default='')
     degree = models.FloatField(max_length=256, default='')
     sweet = models.IntegerField(default='')
     acidity = models.IntegerField(default='')
     body = models.IntegerField(default='')
     tannin = models.IntegerField(default='')
     price = models.IntegerField(default='')
+    year = models.IntegerField(default='')
+    ml = models.IntegerField(default='')
     av_rating = models.FloatField(max_length=256, default='')
+    img_url = models.CharField(max_length=256, default='')
 
     wish = models.ManyToManyField(UserModel, related_name='wine_wish')
 

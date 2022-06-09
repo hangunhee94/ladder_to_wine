@@ -38,7 +38,7 @@ def sign_in_view(request):
         me = auth.authenticate(request, username=username, password=password)
         if me is not None:
             auth.login(request, me)
-            return HttpResponse(me.nickname + "님 환영합니다.")
+            return redirect('/my')
         else:
             return render(request, 'signin.html', {'error':'ID 혹은 비밀번호를 확인 해주세요.'})
 
@@ -84,14 +84,12 @@ def get_wish(request, id):
             wine = WineModel.objects.get(id=wine_id)
             wine_list.append(wine)
 
-        print(wine)            
-        print(wine_list)
         return render(request, 'user/my_wish.html', {'wine_list': wine_list})
 
 # 찜 목록 추가하기
 # id = wine_id, number
 @login_required
-def post_wish(request, id):
+def post_wish(request, id, code):
     wine = WineModel.objects.get(id=id)
     user = request.user
     click_wish = user.wine_wish.all()
@@ -99,7 +97,10 @@ def post_wish(request, id):
         user.wine_wish.remove(wine)
     else:
         user.wine_wish.add(wine)
-    return redirect('users:get_wish', user.id)
+    if code == 1:
+        return redirect('wines:wine_detail_view', id)
+    elif code == 2:
+        return redirect('users:get_wish', user.id)
     # if number == 100:
     #     return redirect('wines:detail', user.id)
     # else:
