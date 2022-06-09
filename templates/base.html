@@ -181,9 +181,9 @@
                     </div>
                     {% else %}
                     <div>
-                        <span class="nav-link">
-                            {{ user.nickname }} 님 반갑습니다.
-                        </span>
+                        <a href="/my"><span class="nav-link">
+                                {{ user.nickname }} 님 반갑습니다.
+                            </span></a>
                     </div>
                     <div>
                         <a class="nav-link" href="/logout"> 로그아웃 </a>
@@ -193,6 +193,10 @@
             </div>
         </div>
     </nav>
+    <br>
+    <br>
+    <br>
+    <hr>
     {% block content %}
 
     {% endblock %}

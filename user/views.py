@@ -1,7 +1,10 @@
 from http.client import HTTP_PORT
+import re
+from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect
+import requests
 from .models import UserModel
-from wine.models import WineModel
+from wine.models import WineModel, ReviewModel, RatingModel
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.contrib import auth
@@ -75,7 +78,7 @@ def get_wish(request, id):
     if request.method == 'GET':
         user = UserModel.objects.get(id=id)
         wish_lists = user.wine_wish.all()
-        print(wish_lists)
+        # print(wish_lists)
         wine_list = []
         for wish_list in wish_lists:
             # print(wish_list)
@@ -105,3 +108,29 @@ def post_wish(request, id, code):
     #     return redirect('wines:detail', user.id)
     # else:
     #     return redirect('users:post_wish', user.id)
+
+# review 리스트 불러오기
+@login_required
+def get_review(request, id):
+    user = UserModel.objects.get(id=id)
+    review_list = ReviewModel.objects.filter(author_id=user).order_by('-created_at')
+
+# 와인 정보 크롤링
+    src_list = []
+    for review in review_list:
+        name_split_list = review.wine.name.split(',')
+        search_name = '+'.join(name_split_list)
+        year = review.wine.year
+
+        url = f'https://www.vivino.com/search/wines?q={search_name}+{year}' 
+        headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
+
+        wine_info = requests.get(url, headers=headers)
+        soup = BeautifulSoup(wine_info.content, 'html.parser')  
+        target_element = soup.select_one('figure')['style']
+        img_src = re.findall('\(([^)]+)', target_element)
+        img_src = img_src[0].replace('//', '')
+        src_list.append(img_src)
+    print(src_list)
+
+    return render(request, 'user/my_review.html', {'review_list': review_list, 'src_list': src_list})
