@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My HOME
+{% endblock %}
+{% block content %}
+{% if not user.is_authenticated %}
+<ul class="">
+    <li class="">
+        <a class="" href="/sign-in"> Sign In <span class=""></span></a>
+    </li>
+    <li class="">
+        <a class="" href="/sign-up"> Sign Up <span class=""></span></a>
+    </li>
+</ul>
+{% else %}
+<ul class="">
+    <li class="">
+        <span class="">
+            {{ user.username }} 님 반갑습니다.
+        </span>
+    </li>
+</ul>
+<div>
+    <a href="">개인정보 수정</a>
+    <a href="">개인정보 탈퇴</a>
+</div>
+<div>
+    <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
+    <a href="/my/review_list">Review List</a>
+</div>
+{% endif %}
+{% endblock %}
