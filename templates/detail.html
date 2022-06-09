@@ -1,7 +1,10 @@
-<h1>test</h1>
-<!-- 사용자 리스트 반복문 -->
+{% extends 'base.html' %}
 
-{% csrf_token %}
+{% block title %}
+상세페이지
+{% endblock %}
+{% block content %}
+
 <div class="">
     {% if wine in click_wish %}
     <a href="{% url 'users:post_wish' id=wine.id code=1 %}" class="">[찜 취소]</a>
@@ -10,7 +13,6 @@
     {% endif %}
 </div>
 <hr>
-
 
 <h3>{{ wine.name }}</h3>
 <h3>{{ wine.year }}</h3>
@@ -63,3 +65,5 @@
 
 {% endif%}
 {% endfor %}
+
+{% endblock %}

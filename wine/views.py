@@ -12,8 +12,8 @@ from django.contrib.auth.decorators import login_required
 import pandas as pd
 
 
-tmp = pd.read_csv('C:\\Users\\SinYoung\\Desktop\\ladder_to_wine\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\SinYoung\\Desktop\\ladder_to_wine\\wine_data.csv')
+tmp = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv')
 
 
 
@@ -146,8 +146,8 @@ def wine_detail_view(request, id):
     
     target_wine2 = []
     for sim_wine in sim_wines_id:
-        wine = WineModel.objects.get(product_id=sim_wine)
-        target_wine2.append(wine)
+        candidate_wine = WineModel.objects.get(product_id=sim_wine)
+        target_wine2.append(candidate_wine)
     result = wine_crawling(target_wine2)
 
     result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
@@ -292,7 +292,7 @@ def search(request):
 
 def add(request):
     print('start')
-    df = pd.read_csv('C:\\Users\\user\\wine\\Wine_data.csv').drop('Unnamed: 0', axis=1)
+    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
 
     for i in range(0, 100):
 

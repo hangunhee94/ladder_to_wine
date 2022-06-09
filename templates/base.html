@@ -8,13 +8,13 @@
 
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Ladder to Wine</title>
-
 </head>
+
 <body>
     <nav>
         <div class="container">
             <div>
-                <a class="logo" href="/sign-in/">Ladder to Wine</a>
+                <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
             </div>
             <form method="post" action="{% url 'wines:search' %}">
                 {% csrf_token %}
@@ -23,7 +23,7 @@
                 </div>
 
             </form>
-            
+
             <div>
                 <form>
                     {% if not user.is_authenticated %}
