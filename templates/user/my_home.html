@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+<!-- CSS 불러오기 -->
+{% load static %}
 
 {% block title %}
 My HOME
@@ -17,7 +19,7 @@ My HOME
 <ul class="">
     <li class="">
         <span class="">
-            {{ user.username }} 님 반갑습니다.
+            {{ user.nickname }} 님 반갑습니다.
         </span>
     </li>
 </ul>
@@ -27,7 +29,13 @@ My HOME
 </div>
 <div>
     <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
-    <a href="/my/review_list">Review List</a>
+    <a href="{% url 'users:get_review' user.id %}">Review List</a>
+</div>
+<div>
+    viewer
+    찜한 상품
+    최근 본 상품
 </div>
 {% endif %}
+
 {% endblock %}
