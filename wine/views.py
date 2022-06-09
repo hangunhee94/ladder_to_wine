@@ -163,7 +163,13 @@ def delete_review(request, review_id, wine_id):
     return redirect('wines:wine_detail_view', wine_id)
 
 
-
+def search(request):
+        if request.method == 'POST':
+            searched = request.POST['searched']        
+            winename = WineModel.objects.filter(name__contains=searched)
+            return render(request, 'search.html', {'searched': searched, 'winename': winename})
+        else:
+            return render(request, 'search.html', {})
 
 
 
@@ -187,7 +193,7 @@ import pandas as pd
 
 def add(request):
     print('start')
-    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
+    df = pd.read_csv('C:\\Users\\user\\wine\\Wine_data.csv').drop('Unnamed: 0', axis=1)
 
     for i in range(0, 100):
 
