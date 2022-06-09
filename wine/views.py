@@ -1,4 +1,6 @@
 import random
+from numpy import dot
+from numpy.linalg import norm
 from django.shortcuts import redirect, render
 from .models import RatingModel, WineModel, ReviewModel
 import requests
@@ -7,13 +9,20 @@ import re
 from django.contrib.auth import get_user_model # 사용자가 데이터 베이스 안에 있는지 검사하는 함수
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+import pandas as pd
+
+
+tmp = pd.read_csv('C:\\Users\\SinYoung\\Desktop\\ladder_to_wine\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\SinYoung\\Desktop\\ladder_to_wine\\wine_data.csv')
+
 
 
 
 # Create your views here.
 def wine_crawling(target_wines):
-    
+
     for target_wine in target_wines:
+
         name_split_list = target_wine.name.split(',')
         search_name = '+'.join(name_split_list)
         year = target_wine.year
@@ -26,6 +35,8 @@ def wine_crawling(target_wines):
         try:
             wine_av = soup.select_one('.average__number').text
             wine_av = wine_av.strip('\n')
+            if wine_av == '—':
+                wine_av = str(0.0)
         except:
             wine_av = 0.0
         # target_wine.loc[i,'av_rating'] = wine_av
@@ -53,6 +64,22 @@ def wine_crawling(target_wines):
     return target_wines
 
 
+def cos_sim(A, B):
+    return dot(A, B)/(norm(A)*norm(B))
+
+
+def similarity(id):
+    sim = []
+    for i in range(0, len(tmp)):
+        sim.append(cos_sim(tmp.iloc[id-1].values, tmp.iloc[i].values))
+
+    coss = pd.DataFrame({'id' : df['id'][0:].tolist(), 'sim' : sim})
+
+    sim_wines = pd.concat([df.reset_index().drop('index', axis=1), coss.drop('id', axis=1)], axis=1).sort_values(by=['sim'], ascending=False)[:10]
+    
+    return sim_wines
+
+
 def home(request):
     wine_ids = WineModel.objects.all().values('id')
 
@@ -71,8 +98,12 @@ def home(request):
 
     # for i in range(0,4):
     #     print(target_wine[i].img_url)
-    
+
     return render(request, 'main.html', {'wines': target_wine})
+
+
+
+
 
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
@@ -110,7 +141,16 @@ def wine_detail_view(request, id):
     reviews = ReviewModel.objects.order_by('-created_at')
 
     # 추천 와인
+    sim_wines = similarity(id)
+    sim_wines_id = sim_wines['id'].tolist()
 
+    target_wine2 = []
+    for sim_wine in sim_wines_id:
+        wine = WineModel.objects.get(product_id=sim_wine)
+        target_wine2.append(wine)
+    result = wine_crawling(target_wine2)
+
+    result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
 
     return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews})
@@ -187,9 +227,6 @@ def delete_review(request, id):
 
 
 
-
-
-import pandas as pd
 
 def add(request):
     print('start')
