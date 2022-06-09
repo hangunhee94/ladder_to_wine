@@ -40,7 +40,7 @@
     <label for="content">
         Review
     </label>
-    <input type="text" name="content" />
+    <textarea name="content" cols="30" rows="5"></textarea>
     <button>Submit</button>
 </form>
 {% endif %}
@@ -55,12 +55,14 @@
 
 {% if review.author == user %}
 <div style="float: right">
-    <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id %}">
-        <span class="badge bg-danger">수정</span>
-    </a>
-    <a href="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}">
-        <span class="badge bg-danger">삭제</span>
-    </a>
+    <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="수정">
+    </form>
+    <form action="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
 </div>
 
 {% endif%}
