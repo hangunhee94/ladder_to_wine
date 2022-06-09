@@ -12,10 +12,10 @@ My WISH
     {% for wine in wine_list %}
     <div class="">
         <div class="">
-            <h5>{{ wine.name }}</h5>
-            <h5>{{ wine.year }}</h5>
-            <h5>{{ wine.price }}</h5>
-            <a href="{% url 'users:post_wish' id=wine.id code=2 %}" class="">[찜 취소]</a>
+            <a href="/wine/{{ wine.id }}">{{ wine.name }}</h5>
+                <h5>{{ wine.year }}</h5>
+                <h5>{{ wine.price }}</h5>
+                <a href="{% url 'users:post_wish' id=wine.id code=2 %}" class="">[찜 취소]</a>
         </div>
     </div>
     <hr>
