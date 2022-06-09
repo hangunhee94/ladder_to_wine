@@ -11,12 +11,12 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def wine_crawling(target_wine):
+def wine_crawling(target_wines):
     
-    for i in range(0, 4):
-        name_split_list = target_wine[i].name.split(',')
+    for target_wine in target_wines:
+        name_split_list = target_wine.name.split(',')
         search_name = '+'.join(name_split_list)
-        year = target_wine[i].year
+        year = target_wine.year
         url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
 
         headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
@@ -43,14 +43,14 @@ def wine_crawling(target_wine):
         # target_wine.loc[i,'img_url'] = img_url
 
         try:
-            target_wine[i].av_rating = wine_av
-            target_wine[i].img_url = img_url
+            target_wine.av_rating = wine_av
+            target_wine.img_url = img_url
         except:
             print('error')
 
         # print(i, "/", wine_av, " / ", img_url)
     
-    return target_wine
+    return target_wines
 
 
 def home(request):
