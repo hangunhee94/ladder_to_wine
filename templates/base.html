@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-
 <head>
+
     <!-- CSS불러오기 -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+   
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Ladder to Wine</title>
+     
 </head>
 
 <body>
     <nav>
         <div class="container">
             <div>
-                <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
+                <a class="logo" href="/sign-in/">Ladder to Wine</a>
             </div>
             <form method="post" action="{% url 'wines:search' %}">
                 {% csrf_token %}
@@ -23,7 +24,7 @@
                 </div>
 
             </form>
-
+            
             <div>
                 <form>
                     {% if not user.is_authenticated %}
@@ -34,9 +35,9 @@
                     </div>
                     {% else %}
                     <div>
-                        <a href="/my"><span class="nav-link">
-                                {{ user.nickname }} 님 반갑습니다.
-                            </span></a>
+                        <a class="" href="/my">
+                            {{ user.nickname }} 님 반갑습니다.
+                        </a>
                     </div>
                     <div>
                         <a class="" href="/logout"> 로그아웃 </a>
@@ -46,15 +47,11 @@
             </div>
         </div>
     </nav>
-    <br>
-    <br>
-    <br>
-    <hr>
-    {% block content %}
 
+    {% block content %}
     {% endblock %}
 
-    <footer class="footer">
+    <footer>
         <nav>
             <div class="footer-content">
                 <span>LADDER BUSINESS PLATFORM Copyright © Ladder Corp. All Rights Reserved.</span>

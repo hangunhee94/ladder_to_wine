@@ -4,7 +4,7 @@
 상세페이지
 {% endblock %}
 {% block content %}
-
+<div class="detail-wrap-sg">
 <div class="">
     {% if wine in click_wish %}
     <a href="{% url 'users:post_wish' id=wine.id code=1 %}" class="">[찜 취소]</a>
@@ -29,41 +29,67 @@
 <h3>{{ wine.price }}</h3>
 <h3>{{ av_rating }}</h3>
 
-{% if exist == 0 %}
 <hr>
-<form action="{% url 'wines:create_review' wine.id %}" method="post">
-    {% csrf_token %}
-    <label for="rating">
-        Rating
-    </label>
-    <input type="number" step="0.1" name="rating" min="0" max="5" />
-    <label for="content">
-        Review
-    </label>
-    <input type="text" name="content" />
-    <button>Submit</button>
-</form>
+<div class="detail-review-wrap-sg">
+
+{% if exist == 0 %}
+    {% if messages %}
+    <hr>
+    {% for message in messages %}
+    <div id="review-alert-msg-sg">
+        {{ message.message }}
+    </div>
+    {% endfor %}
+    <hr>
+    {% endif %}
+
+    <div class="detail-create-review-big-div-sg">
+        <form action="{% url 'wines:create_review' wine.id %}" method="post">
+            {% csrf_token %}
+            <input class="detail-review-rating-input-sg" type="number" step="0.1" name="rating" placeholder="Rating" />
+            <input class="detail-review-content-input-sg" type="text" name="content" placeholder="Write a comment" />
+            <button class="detail-create-review-send-btn-sg">Send</button>
+        </form>
+    </div>
 {% endif %}
 
 <hr>
 {% for review in reviews %}
-<h3>{{ review.rating.rating }}</h3>
-<h3>{{ review.content }}</h3>
-<div style="text-align: right">
-    <span style="font-size: small">{{ review.author.username }}-{{ review.created_at|timesince }} 전</span>
-</div>
 
-{% if review.author == user %}
-<div style="float: right">
-    <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id %}">
-        <span class="badge bg-danger">수정</span>
-    </a>
-    <a href="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}">
-        <span class="badge bg-danger">삭제</span>
-    </a>
-</div>
+<div class="detail-review-big-big-container-sg">
+    <div class="detail-review-big-container-sg">
+        <div class="detail-review-small-container-sg">
+            <span class="detail-review-rating-sg"><img class="detail-review-rating-star-img-sg" src="http://www.vivino.com/packs/f9218e85f6a38dbd34dec5d525c20023.svg#svgView(viewBox(0 0 29 28))" alt="User rated star FullStar" height="28" width="29">
+                <span >
+                    {{ review.rating.rating }}
+                </span>
+            </span>
+            <span class="detail-review-content-sg">
+                {{ review.content }}
+            </span>
+    
+        </div>
+        <div class="detail-review-author-time-container-sg">
+            <div class="detail-review-author-sg">{{ review.author.username }}</div>
+            <div class="detail-review-time-sg">{{ review.created_at }}</div>      
+             
+        </div>
+        {% if review.author == user %}
 
-{% endif%}
+        <div class="detail-review-edit-delete-btn-sg">
+            <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id code=1 %}" method="post">
+            {% csrf_token %}
+                <input class="detail-review-edit-btn-sg" type="submit" value="수정">
+            </form>
+            <form action="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id code=1 %}" method="post">
+            {% csrf_token %}
+                <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
+            </form>
+        </div>
+       </div>
+    </div>
+    {% endif%}
+
 {% endfor %}
 
 {% endblock %}

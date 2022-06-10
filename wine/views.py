@@ -1,19 +1,21 @@
 import random
+from django.http import HttpResponse
 from numpy import dot
 from numpy.linalg import norm
 from django.shortcuts import redirect, render
 from .models import RatingModel, WineModel, ReviewModel
+from user.models import UserModel
 import requests
 from bs4 import BeautifulSoup
 import re
 from django.contrib.auth import get_user_model # 사용자가 데이터 베이스 안에 있는지 검사하는 함수
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 
 
-tmp = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv')
+tmp = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data.csv')
 
 
 
@@ -102,9 +104,6 @@ def home(request):
     return render(request, 'main.html', {'wines': target_wine})
 
 
-
-
-
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
 
@@ -122,12 +121,12 @@ def wine_detail_view(request, id):
     img_src = re.findall('\(([^)]+)', target_element)
     img_src = img_src[0].replace('//', '')
 
-    if float(wine.av_rating) < 1.0 or wine.av_rating == '—':
+    if float(wine.av_rating) < 0.0 or wine.av_rating == '—':
         try:
             av_rating = soup.select_one('.average__number').text
             av_rating = av_rating.strip('\n')
         except:
-            av_rating = '-'
+            av_rating = '—'
 
         try:
             av_rating = av_rating.replace(',', '.')
@@ -140,17 +139,19 @@ def wine_detail_view(request, id):
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
-    # 추천 와인
-    sim_wines = similarity(id)
-    sim_wines_id = sim_wines['id'].tolist()
-    
-    target_wine2 = []
-    for sim_wine in sim_wines_id:
-        candidate_wine = WineModel.objects.get(product_id=sim_wine)
-        target_wine2.append(candidate_wine)
-    result = wine_crawling(target_wine2)
 
-    result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
+    # 추천 와인
+    
+    # sim_wines = similarity(id)
+    # sim_wines_id = sim_wines['id'].tolist()
+    
+    # target_wine2 = []
+    # for sim_wine in sim_wines_id:
+    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
+    #     target_wine2.append(candidate_wine)
+    # result = wine_crawling(target_wine2)
+
+    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
@@ -175,95 +176,119 @@ def wine_detail_view(request, id):
 
 @login_required
 def create_review(request, id):
-    author = request.user
-    wine = WineModel.objects.get(id=id)
-    content = request.POST.get('content')
+    if request.method == 'POST':
+        author = request.user
+        wine = WineModel.objects.get(id=id)
+        content = request.POST.get('content')
+        content = content.strip()
 
-    ## rating model 업데이트 먼저
-    rating = request.POST.get('rating')
-    
-    rating_model = RatingModel(author=author, wine=wine, rating=rating)
-    rating_model.save()
+        ## rating model 업데이트 먼저
+        rating = request.POST.get('rating')
+        if rating == '' or content == '':
+            messages.info(request, '공백은 입력할 수 없습니다.')
+            return redirect('wines:wine_detail_view', id)
+        
+        rating = float(rating)
+        rating_model = RatingModel(author=author, wine=wine, rating=rating)
+        rating_model.save()
 
-    rating_model = RatingModel.objects.get(author=author, wine=wine)
-    review = ReviewModel(author=author, wine=wine, rating=rating_model, content=content)
-    review.save()
+        rating_model = RatingModel.objects.get(author=author, wine=wine)
+        review = ReviewModel(author=author, wine=wine, rating=rating_model, content=content)
+        review.save()
 
-    # wine정보에서 av_rating 변경
-    rating_list = RatingModel.objects.filter(wine=wine)
-    rating = 0
-    for i in range(0, len(rating_list)):
-        rating += rating_list[i].rating
-    
-    wine.av_rating = rating/len(rating_list)
-    wine.save()
-
-    return redirect('wines:wine_detail_view', id)
-
-
-@login_required
-def to_edit_review(request, review_id, wine_id):
-
-    return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id})
-
-
-
-
-@login_required
-def edit_review(request, review_id, wine_id):
-    review_model = ReviewModel.objects.get(id=review_id)
-    author = request.user
-    content = request.POST.get('content')
-    rating = request.POST.get('rating')
-
-    rating_model = RatingModel.objects.get(author=author, wine=review_model.wine)
-    rating_model.rating = rating
-    rating_model.save()
-
-    review_model.content = content
-    review_model.rating = rating_model
-    review_model.save()
-
-    # wine정보에서 av_rating 변경
-    wine = WineModel.objects.get(id=wine_id)
-
-    rating_list = RatingModel.objects.filter(wine=wine)
-    rating = 0
-    for i in range(0, len(rating_list)):
-        rating += rating_list[i].rating
-    
-    wine.av_rating = rating/len(rating_list)
-    wine.save()
-
-    return redirect('wines:wine_detail_view', wine_id)
-
-
-@login_required
-def delete_review(request, review_id, wine_id):
-
-    wine = WineModel.objects.get(id=wine_id)
-
-    # review model 에서 삭제
-    review_model = ReviewModel.objects.get(id=review_id)
-    review_model.delete()
-
-    # rating model 에서 삭제
-    rating_model = RatingModel.objects.get(author=request.user, wine=wine)
-    rating_model.delete()
-
-    # wine정보에서 av_rating 변경
-    rating_list = RatingModel.objects.filter(wine=wine)
-    rating = 0
-    if len(rating_list) == 0:
-        wine.av_rating = 0
-    else:
+        # wine정보에서 av_rating 변경
+        rating_list = RatingModel.objects.filter(wine=wine)
+        rating = 0
         for i in range(0, len(rating_list)):
             rating += rating_list[i].rating
         
         wine.av_rating = rating/len(rating_list)
-    wine.save()
+        wine.save()
 
-    return redirect('wines:wine_detail_view', wine_id)
+        return redirect('wines:wine_detail_view', id)
+
+
+@login_required
+def to_edit_review(request, review_id, wine_id, code):
+    if request.method == 'POST':
+        print('this is to edit review')
+        review = ReviewModel.objects.get(id=review_id)
+        wine = WineModel.objects.get(id=wine_id)
+        return render(request, 'edit_review.html', {'review': review, 'wine': wine, 'code': code})
+
+
+@login_required
+def edit_review(request, review_id, wine_id, code):
+    if request.method == 'POST':
+        review_model = ReviewModel.objects.get(id=review_id)
+        wine = WineModel.objects.get(id=wine_id)
+        author = request.user
+        content = request.POST.get('content')
+        content = content.strip()
+
+        rating = request.POST.get('rating')
+        if rating == '' or content == '':
+            messages.info(request, '공백은 입력할 수 없습니다.')
+            return render(request, 'edit_review.html', {'review': review_model, 'wine': wine})
+
+        rating = float(rating)
+        rating_model = RatingModel.objects.get(author=author, wine=review_model.wine)
+        rating_model.rating = rating
+        rating_model.save()
+
+        review_model.content = content
+        review_model.rating = rating_model
+        review_model.save()
+
+        # wine정보에서 av_rating 변경
+
+        rating_list = RatingModel.objects.filter(wine=wine)
+        rating = 0
+        for i in range(0, len(rating_list)):
+            rating += rating_list[i].rating
+        
+        wine.av_rating = rating/len(rating_list)
+        wine.save()
+            
+        if code == 1:
+            return redirect('wines:wine_detail_view', wine_id)
+        elif code == 2:
+            print('this is edit review')
+
+            return redirect('users:get_review', author.id)      
+
+
+@login_required
+def delete_review(request, review_id, wine_id, code):
+    if request.method == 'POST':
+        user = request.user
+        wine = WineModel.objects.get(id=wine_id)
+
+        # review model 에서 삭제
+        review_model = ReviewModel.objects.get(id=review_id)
+        review_model.delete()
+
+        # rating model 에서 삭제
+        rating_model = RatingModel.objects.get(author=request.user, wine=wine)
+        rating_model.delete()
+
+        # wine정보에서 av_rating 변경
+        rating_list = RatingModel.objects.filter(wine=wine)
+        rating = 0
+        if len(rating_list) == 0:
+            wine.av_rating = 0
+        else:
+            for i in range(0, len(rating_list)):
+                rating += rating_list[i].rating
+            
+            wine.av_rating = rating/len(rating_list)
+        wine.save()
+
+        if code == 1:
+            return redirect('wines:wine_detail_view', wine_id)
+        elif code == 2:
+            print('this is delete review')
+            return redirect('users:get_review', user.id)      
 
 
 def search(request):
@@ -274,60 +299,3 @@ def search(request):
         else:
             return render(request, 'search.html', {})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def add(request):
-    print('start')
-    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
-
-    for i in range(0, 100):
-
-        wine = WineModel()
-        wine.name = df['name'][i]
-        wine.producer = df['producer'][i]
-        wine.nation = df['nation'][i]
-        wine.local1 = df['local1'][i]
-        wine.local2 = df['local2'][i]
-        wine.local3 = df['local3'][i]
-        wine.local4 = df['local4'][i]
-
-        wine.varieties1 = df['varieties1'][i]
-        wine.varieties2 = df['varieties2'][i]
-        wine.varieties3 = df['varieties3'][i]
-        wine.varieties4 = df['varieties4'][i]
-        wine.varieties5 = df['varieties5'][i]
-        wine.varieties6 = df['varieties6'][i]
-        wine.varieties7 = df['varieties7'][i]
-        wine.varieties8 = df['varieties8'][i]
-        wine.varieties9 = df['varieties9'][i]
-        wine.varieties10 = df['varieties10'][i]
-        wine.varieties11 = df['varieties11'][i]
-
-        wine.year = df['year'][i]
-        wine.type = df['type'][i]
-        wine.degree = 0
-        wine.sweet = 0
-        wine.acidity = 0
-        wine.body = 0
-        wine.tannin = 0
-        wine.price = df['price'][i]
-        wine.av_rating = 0
-        
-        wine.save()
-
-    print('end')
-    return render(request, 'detail.html')

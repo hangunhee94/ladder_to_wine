@@ -7,18 +7,25 @@ My WISH
 {% if not user.is_authenticated %}
 {% else %}
 <!-- 사용자 리스트 반복문 -->
-<form action="{% url 'users:get_wish' user.id %}" method="post">
-    {% csrf_token %}
-    {% for wine in wine_list %}
-    <div class="">
+<form class="dh-my-body" action="{% url 'users:get_wish' user.id %}" method="post">
+    <div class="dh-my-body">
+        {% csrf_token %}
+        {% for wine in wine_list %}
+        {% load index %}
+        <h3>{{ wine.name }}</h3>
+        <h3>{{ wine.year }}</h3>
+        <h3>{{ src_list|index:forloop.counter0 }}</h3>
+        <img src="http://{{src_list|index:forloop.counter0}}" alt="image place">
         <div class="">
-            <a href="/wine/{{ wine.id }}">{{ wine.name }}</h5>
-                <h5>{{ wine.year }}</h5>
-                <h5>{{ wine.price }}</h5>
-                <a href="{% url 'users:post_wish' id=wine.id code=2 %}" class="">[찜 취소]</a>
+            <div class="">
+                <a href="/wine/{{ wine.id }}">{{ wine.name }}</h5>
+                    <h5>{{ wine.year }}</h5>
+                    <h5>{{ wine.price }}</h5>
+                    <a href="{% url 'users:post_wish' id=wine.id code=2 %}" class="">[찜 취소]</a>
+            </div>
         </div>
+        <hr>
     </div>
-    <hr>
 </form>
 {% endfor %}
 {% endif %}
