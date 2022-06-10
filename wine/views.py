@@ -121,12 +121,12 @@ def wine_detail_view(request, id):
     img_src = re.findall('\(([^)]+)', target_element)
     img_src = img_src[0].replace('//', '')
 
-    if float(wine.av_rating) < 1.0 or wine.av_rating == '—':
+    if float(wine.av_rating) < 0.0 or wine.av_rating == '—':
         try:
             av_rating = soup.select_one('.average__number').text
             av_rating = av_rating.strip('\n')
         except:
-            av_rating = '-'
+            av_rating = '—'
 
         try:
             av_rating = av_rating.replace(',', '.')
@@ -211,6 +211,7 @@ def create_review(request, id):
 @login_required
 def to_edit_review(request, review_id, wine_id, code):
     if request.method == 'POST':
+        print('this is to edit review')
         review = ReviewModel.objects.get(id=review_id)
         wine = WineModel.objects.get(id=wine_id)
         return render(request, 'edit_review.html', {'review': review, 'wine': wine, 'code': code})
@@ -252,6 +253,8 @@ def edit_review(request, review_id, wine_id, code):
         if code == 1:
             return redirect('wines:wine_detail_view', wine_id)
         elif code == 2:
+            print('this is edit review')
+
             return redirect('users:get_review', author.id)      
 
 
@@ -284,6 +287,7 @@ def delete_review(request, review_id, wine_id, code):
         if code == 1:
             return redirect('wines:wine_detail_view', wine_id)
         elif code == 2:
+            print('this is delete review')
             return redirect('users:get_review', user.id)      
 
 
