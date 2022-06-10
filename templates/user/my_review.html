@@ -7,32 +7,51 @@ My REVIEW
 {% if not user.is_authenticated %}
 {% else %}
 <!-- 사용자 리스트 반복문 -->
-<form action="{% url 'users:get_review' user.id %}" method="post">
-    {% csrf_token %}
 
     {% for review in review_list %}
     {% load index %}
-    <h3>{{ review.wine.name }}</h3>
+    <a href="/wine/{{ wine.id }}">{{ review.wine.name }}</a>
     <h3>{{ review.wine.year }}</h3>
     <h3>{{ src_list|index:forloop.counter0 }}</h3>
     <img src="http://{{src_list|index:forloop.counter0}}" alt="image place">
 
-    <h3>{{ review.rating.rating }}</h3>
-    <h3>{{ review.content }}</h3>
-    <div style="text-align: right">
-        <span style="font-size: small">{{ review.author.nickname }}-{{ review.created_at|timesince }} 전</span>
-    </div>
-
+    <div class="detail-review-big-big-container-sg">
+        <div class="detail-review-big-container-sg">
+            <div class="detail-review-small-container-sg">
+                <span class="detail-review-rating-sg"><img class="detail-review-rating-star-img-sg" src="http://www.vivino.com/packs/f9218e85f6a38dbd34dec5d525c20023.svg#svgView(viewBox(0 0 29 28))" alt="User rated star FullStar" height="28" width="29">
+                    <span >
+                        {{ review.rating.rating }}
+                    </span>
+                </span>
+                <span class="detail-review-content-sg">
+                    {{ review.content }}
+                </span>
+        
+            </div>
+            <div class="detail-review-author-time-container-sg">
+                <div class="detail-review-author-sg">{{ review.author.username }}</div>
+                <div class="detail-review-time-sg">{{ review.created_at }}</div>      
+                 
+            </div>
+    
     {% if review.author == user %}
-    <div style="float: right">
-        <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=review.wine.id %}">
-            <span class="badge bg-danger">수정</span>
-        </a>
-        <a href="{% url 'wines:delete_review' review_id=review.id wine_id=review.wine.id %}">
-            <span class="badge bg-danger">삭제</span>
-        </a>
+    
+    <div class="detail-review-edit-delete-btn-sg">
+        <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=review.wine.id code=2 %}" method="post">
+            {% csrf_token %}
+            <input class="detail-review-edit-btn-sg" type="submit" value="수정">
+        </form>
+        <form action="{% url 'wines:delete_review' review_id=review.id wine_id=review.wine.id code=2 %}" method="post">
+            {% csrf_token %}
+            <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
+        </form>
     </div>
+    
+    
     <hr>
+
+
+
     {% endif %}
     {% endfor %}
 </form>
