@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #c6ba93;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -42,18 +42,18 @@ footer {
     margin-bottom: 10px;
 }
 
-body {
+.body {
     margin: 0 auto;
 }
 
 /* body, table, div, p ,span{font-family:'Nanum Gothic';} */
-body,
+/* body,
 table,
 div,
 p,
 span {
     font-family: 'Noto Sans KR';
-}
+} */
 
 a {
     text-decoration: none;

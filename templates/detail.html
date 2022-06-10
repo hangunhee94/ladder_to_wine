@@ -29,7 +29,6 @@
 <h3>{{ wine.price }}</h3>
 <h3>{{ av_rating }}</h3>
 
-
 <hr>
 <div class="detail-review-wrap-sg">
 
@@ -44,7 +43,6 @@
     <hr>
     {% endif %}
 
-
     <div class="detail-create-review-big-div-sg">
         <form action="{% url 'wines:create_review' wine.id %}" method="post">
             {% csrf_token %}
@@ -54,7 +52,6 @@
         </form>
     </div>
 {% endif %}
-
 
 <hr>
 {% for review in reviews %}
@@ -80,96 +77,19 @@
         {% if review.author == user %}
 
         <div class="detail-review-edit-delete-btn-sg">
-            <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id %}" method="post">
+            <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id code=1 %}" method="post">
             {% csrf_token %}
                 <input class="detail-review-edit-btn-sg" type="submit" value="수정">
             </form>
-            <form action="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}" method="post">
+            <form action="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id code=1 %}" method="post">
             {% csrf_token %}
                 <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
             </form>
         </div>
-        
-    </div>
+       </div>
     </div>
     {% endif%}
 
 {% endfor %}
 
-
-
-<!-- 
-<div class="detail-review-big-big-container-sg">
-<div class="detail-review-big-container-sg">
-    <div class="detail-review-small-container-sg">
-        <span class="detail-review-rating-sg"><img class="detail-review-rating-star-img-sg" src="http://www.vivino.com/packs/f9218e85f6a38dbd34dec5d525c20023.svg#svgView(viewBox(0 0 29 28))" alt="User rated star FullStar" height="28" width="29">
-            <span >
-                4.7
-            </span>
-        </span>
-        <span class="detail-review-content-sg">
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-        </span>
-
-    </div>
-    <div class="detail-review-author-time-container-sg">
-        <div class="detail-review-author-sg">winelover</div>
-        <div class="detail-review-time-sg">200hours ago</div>      
-         
-    </div>
-    <div class="detail-review-edit-delete-btn-sg">
-        <form >
-            <input class="detail-review-edit-btn-sg" type="submit" value="수정">
-        </form>
-        <form >
-            <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
-        </form>
-    </div>
-    
-</div>
-</div>
-
-
-<div class="detail-review-big-big-container-sg">
-    <div class="detail-review-big-container-sg">
-        <div class="detail-review-small-container-sg">
-            <span class="detail-review-rating-sg">
-                4.7
-            </span>
-            <span class="detail-review-content-sg">
-                여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-                여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-                여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-            </span>
-    
-        </div>
-        <div class="detail-review-author-time-container-sg">
-            winelover 200hours ago
-        </div>
-    </div>
-    </div>
-
-    
-    <div class="detail-review-big-big-container-sg">
-<div class="detail-review-big-container-sg">
-    <div class="detail-review-small-container-sg">
-        <span class="detail-review-rating-sg">
-            4.7
-        </span>
-        <span class="detail-review-content-sg">
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-            여기는 와인 리뷰의 내용이 들어갈 자리입니다. 맛있는 와인을 싸게 먹고 싶어요.
-        </span>
-
-    </div>
-    <div class="detail-review-author-time-container-sg">
-        winelover 200hours ago
-    </div>
-</div>
-</div>
-</div>
-</div> -->
 {% endblock %}

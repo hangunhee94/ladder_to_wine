@@ -4,6 +4,7 @@ from numpy import dot
 from numpy.linalg import norm
 from django.shortcuts import redirect, render
 from .models import RatingModel, WineModel, ReviewModel
+from user.models import UserModel
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -103,9 +104,6 @@ def home(request):
     return render(request, 'main.html', {'wines': target_wine})
 
 
-
-
-
 def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
 
@@ -141,7 +139,9 @@ def wine_detail_view(request, id):
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
+
     # 추천 와인
+    
     # sim_wines = similarity(id)
     # sim_wines_id = sim_wines['id'].tolist()
     
@@ -209,17 +209,15 @@ def create_review(request, id):
 
 
 @login_required
-def to_edit_review(request, review_id, wine_id):
+def to_edit_review(request, review_id, wine_id, code):
     if request.method == 'POST':
         review = ReviewModel.objects.get(id=review_id)
         wine = WineModel.objects.get(id=wine_id)
-        return render(request, 'edit_review.html', {'review': review, 'wine': wine})
-
-
+        return render(request, 'edit_review.html', {'review': review, 'wine': wine, 'code': code})
 
 
 @login_required
-def edit_review(request, review_id, wine_id):
+def edit_review(request, review_id, wine_id, code):
     if request.method == 'POST':
         review_model = ReviewModel.objects.get(id=review_id)
         wine = WineModel.objects.get(id=wine_id)
@@ -250,13 +248,17 @@ def edit_review(request, review_id, wine_id):
         
         wine.av_rating = rating/len(rating_list)
         wine.save()
-
-        return redirect('wines:wine_detail_view', wine_id)
+            
+        if code == 1:
+            return redirect('wines:wine_detail_view', wine_id)
+        elif code == 2:
+            return redirect('users:get_review', author.id)      
 
 
 @login_required
-def delete_review(request, review_id, wine_id):
+def delete_review(request, review_id, wine_id, code):
     if request.method == 'POST':
+        user = request.user
         wine = WineModel.objects.get(id=wine_id)
 
         # review model 에서 삭제
@@ -279,7 +281,10 @@ def delete_review(request, review_id, wine_id):
             wine.av_rating = rating/len(rating_list)
         wine.save()
 
-        return redirect('wines:wine_detail_view', wine_id)
+        if code == 1:
+            return redirect('wines:wine_detail_view', wine_id)
+        elif code == 2:
+            return redirect('users:get_review', user.id)      
 
 
 def search(request):
@@ -290,60 +295,3 @@ def search(request):
         else:
             return render(request, 'search.html', {})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def add(request):
-    print('start')
-    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
-
-    for i in range(0, 100):
-
-        wine = WineModel()
-        wine.name = df['name'][i]
-        wine.producer = df['producer'][i]
-        wine.nation = df['nation'][i]
-        wine.local1 = df['local1'][i]
-        wine.local2 = df['local2'][i]
-        wine.local3 = df['local3'][i]
-        wine.local4 = df['local4'][i]
-
-        wine.varieties1 = df['varieties1'][i]
-        wine.varieties2 = df['varieties2'][i]
-        wine.varieties3 = df['varieties3'][i]
-        wine.varieties4 = df['varieties4'][i]
-        wine.varieties5 = df['varieties5'][i]
-        wine.varieties6 = df['varieties6'][i]
-        wine.varieties7 = df['varieties7'][i]
-        wine.varieties8 = df['varieties8'][i]
-        wine.varieties9 = df['varieties9'][i]
-        wine.varieties10 = df['varieties10'][i]
-        wine.varieties11 = df['varieties11'][i]
-
-        wine.year = df['year'][i]
-        wine.type = df['type'][i]
-        wine.degree = 0
-        wine.sweet = 0
-        wine.acidity = 0
-        wine.body = 0
-        wine.tannin = 0
-        wine.price = df['price'][i]
-        wine.av_rating = 0
-        
-        wine.save()
-
-    print('end')
-    return render(request, 'detail.html')

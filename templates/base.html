@@ -1,161 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
+
+    <!-- CSS불러오기 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Ladder to Wine</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+     
 </head>
-<style>
-    .container {
-        position: fixed;
-        width: 100%;
-        min-height: 65px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #ffffff;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .logo {
-        margin-left: 20px;
-    }
-
-    .wrap {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: 300px;
-        width: 400px;
-        margin: -200px 0 0 -200px;
-    }
-
-    #searched {
-        text-align: center;
-        width: 300px;
-        height: 30px;
-        font-size: 20px;
-    }
-    .header-signin {
-        margin-right: 30px;
-    }
-
-    .footer-content {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        margin: 0 auto;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-
-    body {
-        margin: 0 auto;
-    }
-
-    a {
-        text-decoration: none;
-        color: #333;
-    }
-
-    #con {
-        width: 100%;
-        height: 100vh;
-        background-color: #ffffff;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        padding: 0;
-    }
-
-    #login {
-        width: 600px;
-        height: 600px;
-        margin: 0 auto;
-        /* position: relative; */
-        /* background:#ddd; */
-    }
-
-    #login_form {
-        /* text-align:center; */
-        border-radius: 10px;
-        padding: 50px;
-        background: #fff2d0;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .login {
-        font-size: 25px;
-        font-weight: 900;
-        color: #333;
-    }
-
-    .size {
-        width: 300px;
-        height: 30px;
-        padding-left: 10px;
-        background-color: #f4f4f4;
-        /* margin-left:10px; */
-        border: none;
-        border-radius: 5px;
-    }
-
-    .btn {
-        width: 310px;
-        height: 40px;
-        font-size: 15px;
-        background-color: #df3278;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .btn:hover {
-        background: #ca296a;
-    }
-
-    hr {
-        margin-top: 20px;
-        background: #eee;
-    }
-
-    .find {
-        color: #ddd;
-        font-size: 12px;
-    }
-
-    .find span {
-        padding-left: 10px;
-    }
-
-    .find span::before {
-        content: '|';
-        color: #333;
-        padding-right: 10px;
-    }
-
-    .find span:nth-child(1):before {
-        content: none;
-    }
-
-    .find span:nth-child(1) {
-        padding-left: 0px;
-    }
-
-    .find a:hover {
-        color: #707070;
-    }
-</style>
 
 <body>
     <nav>
@@ -193,8 +47,8 @@
             </div>
         </div>
     </nav>
-    {% block content %}
 
+    {% block content %}
     {% endblock %}
 
     <footer>
