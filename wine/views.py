@@ -188,6 +188,7 @@ def create_review(request, id):
             messages.info(request, '공백은 입력할 수 없습니다.')
             return redirect('wines:wine_detail_view', id)
         
+        rating = float(rating)
         rating_model = RatingModel(author=author, wine=wine, rating=rating)
         rating_model.save()
 
@@ -231,6 +232,7 @@ def edit_review(request, review_id, wine_id):
             messages.info(request, '공백은 입력할 수 없습니다.')
             return render(request, 'edit_review.html', {'review': review_model, 'wine': wine})
 
+        rating = float(rating)
         rating_model = RatingModel.objects.get(author=author, wine=review_model.wine)
         rating_model.rating = rating
         rating_model.save()
