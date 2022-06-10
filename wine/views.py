@@ -60,7 +60,7 @@ def wine_crawling(target_wines):
             print('error')
 
         # print(i, "/", wine_av, " / ", img_url)
-    
+
     return target_wines
 
 
@@ -94,12 +94,12 @@ def home(request):
             except wine.DoesNotExist:
                 wine = None
 
-    target_wine = wine_crawling(wines)
+    target_wines = wine_crawling(wines)
+    for target_wine in target_wines:
+        target_wine.price = format(target_wine.price, ",")
+        print(target_wine.price)
 
-    # for i in range(0,4):
-    #     print(target_wine[i].img_url)
-
-    return render(request, 'main.html', {'wines': target_wine})
+    return render(request, 'main.html', {'wines': target_wines})
 
 
 
