@@ -75,11 +75,12 @@ def my_home(request):
 # 찜 목록 가져오기
 @login_required
 def get_wish(request, id):
+    user = UserModel.objects.get(id=id)
     if request.method == 'GET':
-        user = UserModel.objects.get(id=id)
         wish_lists = user.wine_wish.all()
         # print(wish_lists)
         wine_list = []
+        src_list = []
         for wish_list in wish_lists:
             # print(wish_list)
             wine_id = wish_list.id
@@ -87,7 +88,22 @@ def get_wish(request, id):
             wine = WineModel.objects.get(id=wine_id)
             wine_list.append(wine)
 
-        return render(request, 'user/my_wish.html', {'wine_list': wine_list})
+            # src 주소 불러오기
+            name_split_list = wine.name.split(',')
+            search_name = '+'.join(name_split_list)
+            year = wine.year
+
+            url = f'https://www.vivino.com/search/wines?q={search_name}+{year}' 
+            headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
+
+            wine_info = requests.get(url, headers=headers)
+            soup = BeautifulSoup(wine_info.content, 'html.parser')  
+            target_element = soup.select_one('figure')['style']
+            img_src = re.findall('\(([^)]+)', target_element)
+            img_src = img_src[0].replace('//', '')
+            src_list.append(img_src)
+
+        return render(request, 'user/my_wish.html', {'wine_list': wine_list, 'src_list':src_list})
 
 # 찜 목록 추가하기
 # id = wine_id, number

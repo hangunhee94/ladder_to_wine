@@ -12,7 +12,7 @@ My REVIEW
 
     {% for review in review_list %}
     {% load index %}
-    <h3>{{ review.wine.name }}</h3>
+    <a href="/wine/{{ wine.id }}">{{ review.wine.name }}</a>
     <h3>{{ review.wine.year }}</h3>
     <h3>{{ src_list|index:forloop.counter0 }}</h3>
     <img src="http://{{src_list|index:forloop.counter0}}" alt="image place">
@@ -25,10 +25,10 @@ My REVIEW
 
     {% if review.author == user %}
     <div style="float: right">
-        <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=review.wine.id %}">
+        <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=review.wine.id code=2 %}">
             <span class="badge bg-danger">수정</span>
         </a>
-        <a href="{% url 'wines:delete_review' review_id=review.id wine_id=review.wine.id %}">
+        <a href="{% url 'wines:delete_review' review_id=review.id wine_id=review.wine.id code=2 %}">
             <span class="badge bg-danger">삭제</span>
         </a>
     </div>

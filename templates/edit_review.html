@@ -1,12 +1,12 @@
-<form action="{% url 'wines:edit_review' review_id=review_id wine_id=wine_id %}" method="post">
+<form action="{% url 'wines:edit_review' review_id=review_id wine_id=wine_id code=code %}" method="post">
     {% csrf_token %}
-<label for="rating">
-    Rating
-</label>
+    <label for="rating">
+        Rating
+    </label>
     <input type="number" step="0.1" name="rating" min="0" max="5" />
-<label for="content">
-    Review
-</label>
+    <label for="content">
+        Review
+    </label>
     <input type="text" name="content" />
-<button>Submit</button>
+    <button>Submit</button>
 </form>

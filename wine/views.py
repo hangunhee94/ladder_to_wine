@@ -3,6 +3,7 @@ from numpy import dot
 from numpy.linalg import norm
 from django.shortcuts import redirect, render
 from .models import RatingModel, WineModel, ReviewModel
+from user.models import UserModel
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -140,17 +141,17 @@ def wine_detail_view(request, id):
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
-    # 추천 와인
-    sim_wines = similarity(id)
-    sim_wines_id = sim_wines['id'].tolist()
+    # # 추천 와인
+    # sim_wines = similarity(id)
+    # sim_wines_id = sim_wines['id'].tolist()
     
-    target_wine2 = []
-    for sim_wine in sim_wines_id:
-        candidate_wine = WineModel.objects.get(product_id=sim_wine)
-        target_wine2.append(candidate_wine)
-    result = wine_crawling(target_wine2)
+    # target_wine2 = []
+    # for sim_wine in sim_wines_id:
+    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
+    #     target_wine2.append(candidate_wine)
+    # result = wine_crawling(target_wine2)
 
-    result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
+    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
@@ -202,15 +203,14 @@ def create_review(request, id):
 
 
 @login_required
-def to_edit_review(request, review_id, wine_id):
+def to_edit_review(request, review_id, wine_id, code):
 
-    return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id})
-
+    return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id, 'code': code})
 
 
 
 @login_required
-def edit_review(request, review_id, wine_id):
+def edit_review(request, review_id, wine_id, code):
     review_model = ReviewModel.objects.get(id=review_id)
     author = request.user
     content = request.POST.get('content')
@@ -235,12 +235,17 @@ def edit_review(request, review_id, wine_id):
     wine.av_rating = rating/len(rating_list)
     wine.save()
 
-    return redirect('wines:wine_detail_view', wine_id)
+
+    if code == 1:
+        return render(request, 'edit_review.html', {'review_id': review_id, 'wine_id': wine_id})
+    elif code == 2:
+        return redirect('users:get_review', author.id)
+
 
 
 @login_required
-def delete_review(request, review_id, wine_id):
-
+def delete_review(request, review_id, wine_id, code):
+    user = request.user
     wine = WineModel.objects.get(id=wine_id)
 
     # review model 에서 삭제
@@ -263,7 +268,10 @@ def delete_review(request, review_id, wine_id):
         wine.av_rating = rating/len(rating_list)
     wine.save()
 
-    return redirect('wines:wine_detail_view', wine_id)
+    if code == 1:
+        return redirect('wines:wine_detail_view', wine_id)
+    elif code == 2:
+        return redirect('users:get_review', user.id)
 
 
 def search(request):

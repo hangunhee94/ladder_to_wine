@@ -55,10 +55,10 @@
 
 {% if review.author == user %}
 <div style="float: right">
-    <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id %}">
+    <a href="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id code=1 %}">
         <span class="badge bg-danger">수정</span>
     </a>
-    <a href="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id %}">
+    <a href="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id code=1 %}">
         <span class="badge bg-danger">삭제</span>
     </a>
 </div>
