@@ -142,15 +142,15 @@ def wine_detail_view(request, id):
 
     # 추천 와인
     sim_wines = similarity(id)
-    sim_wines_id = sim_wines['id'].tolist()
+    sim_wine_ids = sim_wines['id'].tolist()
     
-    target_wine2 = []
-    for sim_wine in sim_wines_id:
-        candidate_wine = WineModel.objects.get(product_id=sim_wine)
-        target_wine2.append(candidate_wine)
-    result = wine_crawling(target_wine2)
+    target_wines = []
+    for sim_wine_id in sim_wine_ids:
+        candidate_wine = WineModel.objects.get(product_id=sim_wine_id)
+        target_wines.append(candidate_wine)
 
-    result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
+    result = wine_crawling(target_wines)
+    recommend_wines = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
@@ -170,7 +170,7 @@ def wine_detail_view(request, id):
     # else:
     #     user.wine_wish.add(wine)
 
-    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist, 'click_wish':click_wish})
+    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist, 'click_wish':click_wish, 'recommend_wines': recommend_wines})
 
 
 @login_required
