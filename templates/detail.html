@@ -31,6 +31,14 @@
 
 {% if exist == 0 %}
 <hr>
+{% if messages %}
+{% for message in messages %}
+<div id="review-alert-msg">
+    {{ message.message }}
+</div>
+{% endfor %}
+{% endif %}
+
 <form action="{% url 'wines:create_review' wine.id %}" method="post">
     {% csrf_token %}
     <label for="rating">

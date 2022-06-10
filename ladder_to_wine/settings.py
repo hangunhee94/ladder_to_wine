@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages_constants # 장고 메세지 사용
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,3 +134,5 @@ templatetagsFILES_DIRS = ( os.path.join(BASE_DIR, 'templatetags'), )
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserModel'
+
+MESSAGE_LEVEL = messages_constants.DEBUG # 장고 메세지 사용

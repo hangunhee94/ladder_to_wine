@@ -1,4 +1,5 @@
 import random
+from django.http import HttpResponse
 from numpy import dot
 from numpy.linalg import norm
 from django.shortcuts import redirect, render
@@ -7,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from django.contrib.auth import get_user_model # 사용자가 데이터 베이스 안에 있는지 검사하는 함수
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 
@@ -141,16 +142,16 @@ def wine_detail_view(request, id):
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
     # 추천 와인
-    sim_wines = similarity(id)
-    sim_wines_id = sim_wines['id'].tolist()
+    # sim_wines = similarity(id)
+    # sim_wines_id = sim_wines['id'].tolist()
     
-    target_wine2 = []
-    for sim_wine in sim_wines_id:
-        candidate_wine = WineModel.objects.get(product_id=sim_wine)
-        target_wine2.append(candidate_wine)
-    result = wine_crawling(target_wine2)
+    # target_wine2 = []
+    # for sim_wine in sim_wines_id:
+    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
+    #     target_wine2.append(candidate_wine)
+    # result = wine_crawling(target_wine2)
 
-    result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
+    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
@@ -179,9 +180,13 @@ def create_review(request, id):
         author = request.user
         wine = WineModel.objects.get(id=id)
         content = request.POST.get('content')
+        content = content.strip()
 
         ## rating model 업데이트 먼저
         rating = request.POST.get('rating')
+        if rating == '' or content == '':
+            messages.info(request, '공백은 입력할 수 없습니다.')
+            return redirect('wines:wine_detail_view', id)
         
         rating_model = RatingModel(author=author, wine=wine, rating=rating)
         rating_model.save()
@@ -216,9 +221,15 @@ def to_edit_review(request, review_id, wine_id):
 def edit_review(request, review_id, wine_id):
     if request.method == 'POST':
         review_model = ReviewModel.objects.get(id=review_id)
+        wine = WineModel.objects.get(id=wine_id)
         author = request.user
         content = request.POST.get('content')
+        content = content.strip()
+
         rating = request.POST.get('rating')
+        if rating == '' or content == '':
+            messages.info(request, '공백은 입력할 수 없습니다.')
+            return render(request, 'edit_review.html', {'review': review_model, 'wine': wine})
 
         rating_model = RatingModel.objects.get(author=author, wine=review_model.wine)
         rating_model.rating = rating
@@ -229,7 +240,6 @@ def edit_review(request, review_id, wine_id):
         review_model.save()
 
         # wine정보에서 av_rating 변경
-        wine = WineModel.objects.get(id=wine_id)
 
         rating_list = RatingModel.objects.filter(wine=wine)
         rating = 0
