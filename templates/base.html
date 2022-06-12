@@ -8,6 +8,15 @@
    
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Ladder to Wine</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    function onDisplay(){
+        $('.loading-box-div-sg').show();
+        document.body.style.overflow = "hidden";
+    }
+       
+    </script>
+    
      
 </head>
 
@@ -58,6 +67,18 @@
             </div>
         </nav>
     </footer>
+    <div class="loading-box-div-sg" style="display: none;">
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>LOADING</span>
+        </div>
+    </div>
+        
 </body>
 
 </html>
