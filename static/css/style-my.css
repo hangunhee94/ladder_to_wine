@@ -139,3 +139,142 @@
 /*  */
 /*  */
 /* my_wish */
+
+.dh-mywish-body {
+    margin-top: 20px;
+    padding: 0;
+}
+
+.dh-mywish-section {
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+
+.dh-mywish-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 10px;
+}
+
+.dh-mywish-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 800px;
+    min-height: 400px;
+
+    margin: 15px;
+    padding: 30px;
+
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+
+}
+
+.dh-mywish-card:hover {
+    /* border: 1px solid rgb(211, 211, 211); */
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+.dh-mywish-card-box {
+    margin-bottom: 40px;
+
+}
+
+.dh-mywish-right {
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.dh-mywish-right-img_box {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+
+.dh-mywish-right-img {
+    min-height: 300px;
+    width: 250px;
+}
+
+.dh-mywish-rating_box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    margin: 40px 5px 5px 5px;
+
+    text-align: center;
+}
+
+.dh-mywish-rating {
+    font-size: 50px;
+    font-weight: 600;
+    color: rgb(188, 67, 67);
+}
+
+.dh-mywish-price {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.dh-mywish-left {
+    margin-top: 30px;
+    padding: 5px;
+
+    font-weight: 500;
+}
+
+.dh-mywish-producer {
+    font-size: 20px;
+    color: rgb(121, 121, 121);
+}
+
+.dh-mywish-name {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.dh-mywish-local {
+    font-size: 20px;
+}
+
+.dh-mywish-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 8px;
+    margin-right: 4px;
+    cursor: pointer;
+
+    width: 500px;
+    height: 50px;
+
+    /* all: unset; */
+    font-size: 27px;
+    font-weight: 600;
+    color: #e1e0d9;
+    box-sizing: border-box;
+    background-color: #b53e47;
+    border-radius: 24px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+
+    margin-bottom: 60px;
+
+}
+
+.dh-mywish-btn:hover {
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}

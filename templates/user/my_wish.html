@@ -3,30 +3,43 @@
 {% block title %}
 My WISH
 {% endblock %}
+
 {% block content %}
+
 {% if not user.is_authenticated %}
+
 {% else %}
 <!-- 사용자 리스트 반복문 -->
-<form class="dh-my-body" action="{% url 'users:get_wish' user.id %}" method="post">
-    <div class="dh-my-body">
-        {% csrf_token %}
-        {% for wine in wine_list %}
-        {% load index %}
-        <h3>{{ wine.name }}</h3>
-        <h3>{{ wine.year }}</h3>
-        <h3>{{ src_list|index:forloop.counter0 }}</h3>
-        <img src="http://{{src_list|index:forloop.counter0}}" alt="image place">
-        <div class="">
-            <div class="">
-                <a href="/wine/{{ wine.id }}">{{ wine.name }}</h5>
-                    <h5>{{ wine.year }}</h5>
-                    <h5>{{ wine.price }}</h5>
-                    <a href="{% url 'users:post_wish' id=wine.id code=2 %}" class="">[찜 취소]</a>
-            </div>
+<form class="dh-mywish-body" action="{% url 'users:get_wish' user.id %}" method="post">
+    <div class="dh-mywish-section">
+        <div class="dh-mywish-box">
+            {% for wine in wine_list %}
+            {% csrf_token %}
+            <a class="dh-mywish-card" href="/wine/{{ wine.id }}">
+                <div class="dh-mywish-right">
+                    <div class="dh-mywish-right-img_box">
+                        {% load index %}
+                        <img class="dh-mywish-right-img" src="http://{{src_list|index:forloop.counter0}}"
+                            alt="image place">
+                    </div>
+                </div>
+                <div class="dh-mywish-left">
+                    <div class="dh-mywish-producer">{{ wine.producer }}</div>
+                    <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
+                    <div class="dh-mywish-local">{{ wine.local2 }}, {{ wine.local1 }}</div>
+                    <div class="dh-mywish-rating_box">
+                        <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
+                        <div class="dh-mywish-price">{{ wine.price }} 원</div>
+                    </div>
+                </div>
+            </a>
+            <a class="dh-mywish-btn" href="{% url 'users:post_wish' id=wine.id code=2 %}">
+                찜 취소
+            </a>
+            {% endfor %}
         </div>
-        <hr>
     </div>
 </form>
-{% endfor %}
+
 {% endif %}
 {% endblock %}
