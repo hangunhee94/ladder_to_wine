@@ -28,9 +28,7 @@ My WISH
             <a class="dh-mywish-card" href="/wine/{{ wine.id }}">
                 <div class="dh-mywish-right">
                     <div class="dh-mywish-right-img_box">
-                        {% load index %}
-                        <img class="dh-mywish-right-img" src="http://{{src_list|index:forloop.counter0}}"
-                            alt="image place">
+                        <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}" alt="image place">
                     </div>
                 </div>
                 <div class="dh-mywish-center">
