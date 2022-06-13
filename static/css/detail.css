@@ -4,7 +4,31 @@
     margin: 50px auto 50px auto;
 }
 
-.detail-review-wrap-sg {
+.sim-wine-recommendation-sg{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.sim-wine-recommendation-btn-sg{
+    /* width: 100%; */
+    all: unset;
+    color: #ffffff;
+    box-sizing: border-box;
+    background-color: #b53e47;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px 15px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.detail-review-wrap-sg{
     width: 1000px;
     margin: auto;
 }
@@ -166,7 +190,7 @@
 
 .detail-review-delete-btn-sg {
     all: unset;
-    color: #e1e0d9;
+    color: #ffffff;
     box-sizing: border-box;
     background-color: #b53e47;
     border-radius: 24px;
@@ -182,7 +206,7 @@
 
 .slidein-sg {
     animation: slidein 2s ease-out forwards;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 @keyframes slidein {
