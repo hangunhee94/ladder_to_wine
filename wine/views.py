@@ -15,8 +15,8 @@ import pandas as pd
 
 
 
-tmp = pd.read_csv('C:\\Users\\user\\wine\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\user\\wine\\wine_data.csv')
+tmp = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data.csv')
 
 
 
@@ -147,19 +147,6 @@ def wine_detail_view(request, id):
 
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
-
-    # 추천 와인
-    
-    # sim_wines = similarity(id)
-    # sim_wines_id = sim_wines['id'].tolist()
-    
-    # target_wine2 = []
-    # for sim_wine in sim_wines_id:
-    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
-    #     target_wine2.append(candidate_wine)
-    # result = wine_crawling(target_wine2)
-
-    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
@@ -304,9 +291,9 @@ def search(request):
         else:
             return render(request, 'search.html', {})
 
-def wine_recommend_view(request, project_id):
+def wine_recommend_view(request, id):
 
-    sim_wines = similarity(project_id)
+    sim_wines = similarity(id)
     sim_wines_ids = sim_wines['id'].tolist()
     
     target_wines = []
@@ -316,7 +303,19 @@ def wine_recommend_view(request, project_id):
 
     result = wine_crawling(target_wines)
 
-    recommend_wines = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:10]
-    print(recommend_wines)
+    recommend_wines = sorted(result, key=lambda wine: float(wine.av_rating), reverse=True)[:4]
+    recommend_wines = wine_crawling(recommend_wines)
     return render(request, 'recommend.html', {'recommend_wines': recommend_wines})
 
+    # 추천 와인
+    
+    # sim_wines = similarity(id)
+    # sim_wines_id = sim_wines['id'].tolist()
+    
+    # target_wine2 = []
+    # for sim_wine in sim_wines_id:
+    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
+    #     target_wine2.append(candidate_wine)
+    # result = wine_crawling(target_wine2)
+
+    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
