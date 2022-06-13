@@ -15,8 +15,9 @@ import pandas as pd
 
 
 
-tmp = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data.csv')
+
+tmp = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv')
 
 
 
@@ -307,15 +308,3 @@ def wine_recommend_view(request, id):
     recommend_wines = wine_crawling(recommend_wines)
     return render(request, 'recommend.html', {'recommend_wines': recommend_wines})
 
-    # 추천 와인
-    
-    # sim_wines = similarity(id)
-    # sim_wines_id = sim_wines['id'].tolist()
-    
-    # target_wine2 = []
-    # for sim_wine in sim_wines_id:
-    #     candidate_wine = WineModel.objects.get(product_id=sim_wine)
-    #     target_wine2.append(candidate_wine)
-    # result = wine_crawling(target_wine2)
-
-    # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
