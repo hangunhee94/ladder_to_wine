@@ -10,7 +10,7 @@ My WISH
 
 {% else %}
 <!-- 사용자 리스트 반복문 -->
-<form class="dh-mywish-body" action="{% url 'users:get_wish' user.id %}" method="post">
+<div class="dh-mywish-body">
     <div class="dh-mywish-section">
         <div class="dh-mywish-box">
             {% for wine in wine_list %}
@@ -23,23 +23,42 @@ My WISH
                             alt="image place">
                     </div>
                 </div>
-                <div class="dh-mywish-left">
+                <div class="dh-mywish-center">
                     <div class="dh-mywish-producer">{{ wine.producer }}</div>
                     <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
-                    <div class="dh-mywish-local">{{ wine.local2 }}, {{ wine.local1 }}</div>
+                    <div class="dh-mywish-local">{{ wine.nation }}, {{ wine.local1 }}</div>
+                    <div class="dh-mywish-local">{{ wine.varieties1 }}</div>
+                    {% if wine.varieties2 != 0 %}
+                    <div>Blended</div>
+                    {% endif %}
                     <div class="dh-mywish-rating_box">
                         <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
                         <div class="dh-mywish-price">{{ wine.price }} 원</div>
                     </div>
                 </div>
-            </a>
-            <a class="dh-mywish-btn" href="{% url 'users:post_wish' id=wine.id code=2 %}">
-                찜 취소
+                <div class="dh-mywish-left">
+                    <div class="dh-mywish-producer-semi">TYPE : {{ wine.type }}</div>
+                    <div class="dh-mywish-producer-semi">DEGREE : {{ wine.degree }}</div>
+                    <div class="dh-mywish-producer-semi">SWEET : {{ wine.sweet }}</div>
+                    <div class="dh-mywish-producer-semi">ACIDITY : {{ wine.acidity }}</div>
+                    <div class="dh-mywish-producer-semi">BODY : {{ wine.body }}</div>
+                    <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
+                    <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
+                </div>
+                <form class="dh-mywish-review-rating-star" action="{% url 'users:post_wish' id=wine.id code=2 %}"
+                    method="post">
+                    {% csrf_token %}
+                    <button type="submit"><span class="dh-mywish-review-rating-sg"><img
+                                class="dh-mywish-review-rating-star-img-sg"
+                                src="https://images.vivino.com/web_common/rating/star_10.svg"
+                                alt="User rated star FullStar" height="28" width="29">
+                        </span></button>
+                </form>
             </a>
             {% endfor %}
         </div>
     </div>
-</form>
+</div>
 
 {% endif %}
 {% endblock %}
