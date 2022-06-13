@@ -59,14 +59,18 @@
         </div>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <div class="body-wrapper">
+        <div class="body-content">
+            {% block content %}
+            {% endblock %}
+        </div>
 
-    <footer>
+        <footer>
             <div class="footer-content">
                 <span>LADDER BUSINESS PLATFORM Copyright © Ladder Corp. All Rights Reserved.</span>
             </div>
-    </footer>
+        </footer>
+    </div>
     <div class="loading-box-div-sg" style="display: none;">
         <div class="wrapper">
             <div class="circle"></div>

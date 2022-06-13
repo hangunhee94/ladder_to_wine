@@ -55,6 +55,7 @@ My WISH
                         </span></button>
                 </form>
             </a>
+            <a href="{% url 'wines:wine_recommend_view' wine.id %}" onclick="onDisplay()">비슷한 와인 추천 받기</a>
             {% endfor %}
         </div>
     </div>
