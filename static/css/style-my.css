@@ -356,10 +356,41 @@
 }
 
 .dh-my-nav-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
-    width: 1200px;
+    width: 1260px;
     height: 40px;
 
-    background-color: red;
+    background-color: #b53e48b9;
     border-radius: 0 0 15px 15px;
+}
+
+.dh-nav-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1260px;
+    height: 40px;
+
+    background-color: #b53e48b9;
+    border-radius: 0 0 15px 15px;
+}
+
+.dh-my-nav-menu {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dh-my-nav-menu a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dh-my-nav-menu a:hover {
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 15%), 0 -8px 24px 0 rgb(234 224 218 / 20%);
 }

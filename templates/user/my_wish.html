@@ -11,10 +11,10 @@ My WISH
 {% else %}
 <div class="dh-my-nav">
     <div class="dh-my-nav-box">
-        <div class="dh-my-nav-left">
+        <div class="dh-my-nav-menu">
             <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
         </div>
-        <div class="dh-my-nav-right">
+        <div class="dh-my-nav-menu">
             <a href="{% url 'users:get_review' user.id %}">Review List</a>
         </div>
     </div>
@@ -65,7 +65,10 @@ My WISH
                         </span></button>
                 </form>
             </a>
-            <a href="{% url 'wines:wine_recommend_view' wine.id %}" onclick="onDisplay()">비슷한 와인 추천 받기</a>
+            <div class="sim-wine-recommendation-sg">
+                <a href="{% url 'wines:wine_recommend_view' id=wine.id %}" class="sim-wine-recommendation-btn-sg"
+                    onclick="onDisplay()">비슷한 와인 추천 받으러 가기</a>
+            </div>
             {% endfor %}
         </div>
     </div>

@@ -6,6 +6,16 @@ My REVIEW
 {% block content %}
 {% if not user.is_authenticated %}
 {% else %}
+<div class="dh-my-nav">
+    <div class="dh-my-nav-box">
+        <div class="dh-my-nav-menu">
+            <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
+        </div>
+        <div class="dh-my-nav-menu">
+            <a href="{% url 'users:get_review' user.id %}">Review List</a>
+        </div>
+    </div>
+</div>
 <!-- 사용자 리스트 반복문 -->
 <div style="min-height: 700px;">
     <div class="dh-mywish-body">
