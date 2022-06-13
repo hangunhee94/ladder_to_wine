@@ -24,12 +24,13 @@
     <nav>
         <div class="container">
             <div>
-                <a class="logo" href="/sign-in/">Ladder to Wine</a>
+                <a class="logo" href="{% url 'wines:home' %}"">Ladder to Wine</a>
             </div>
             <form method="post" action="{% url 'wines:search' %}">
                 {% csrf_token %}
                 <div class="search-bar">
                     <input type="search" placeholder="와인 검색" aria-label="Search" id="searched" name="searched">
+                    <input type="submit" value="검색" class="search-btn">
                 </div>
 
             </form>
