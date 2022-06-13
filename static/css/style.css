@@ -9,3 +9,41 @@
 @import url("style-search.css");
 @import url("style-sign.css");
 @import url("style-recommend.css");
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+#body-wrapper {
+
+    height: auto;
+    min-height: 100%;
+
+    /* position: relative; */
+}
+
+
+/* #body-content {
+    margin-top: 100px;
+    /* padding-bottom: 100%; */
+/* footer의 높이 */
+/* } */
+
+
+footer {
+    text-align: center;
+
+    margin-top: 70px;
+
+    position: relative;
+    transform: translateY(-100%);
+
+    color: rgb(121, 121, 121);
+}
+
+/* footer 하단 고정 [E] */

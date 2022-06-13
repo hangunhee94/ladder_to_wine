@@ -241,7 +241,7 @@
 
 .dh-mywish-left {
     /* margin-top: 30px; */
-    margin: auto 0 auto 0;
+    margin: auto 70px auto 0;
     padding: 5px;
 
     font-weight: 500;
@@ -338,4 +338,28 @@
 
 .review-content {
     min-height: 645px;
+}
+
+.dh-mywish-review-box {
+    width: 1000px;
+}
+
+/*  */
+/*  */
+/* 개인 페이지 정보바 */
+
+.dh-my-nav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.dh-my-nav-box {
+
+    width: 1200px;
+    height: 40px;
+
+    background-color: red;
+    border-radius: 0 0 15px 15px;
 }

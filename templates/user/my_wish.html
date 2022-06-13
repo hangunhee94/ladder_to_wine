@@ -9,6 +9,16 @@ My WISH
 {% if not user.is_authenticated %}
 
 {% else %}
+<div class="dh-my-nav">
+    <div class="dh-my-nav-box">
+        <div class="dh-my-nav-left">
+            <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
+        </div>
+        <div class="dh-my-nav-right">
+            <a href="{% url 'users:get_review' user.id %}">Review List</a>
+        </div>
+    </div>
+</div>
 <!-- 사용자 리스트 반복문 -->
 <div class="dh-mywish-body">
     <div class="dh-mywish-section">
@@ -55,6 +65,7 @@ My WISH
                         </span></button>
                 </form>
             </a>
+            <a href="{% url 'wines:wine_recommend_view' wine.id %}" onclick="onDisplay()">비슷한 와인 추천 받기</a>
             {% endfor %}
         </div>
     </div>

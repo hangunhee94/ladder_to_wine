@@ -1,8 +1,7 @@
-.detail-wrap-sg{
+.detail-wrap-sg {
     width: 1200px;
+
     margin: 50px auto 50px auto;
-    /* padding-bottom: 100px;
-    padding-top: 100px; */
 }
 
 .sim-wine-recommendation-sg{
@@ -34,7 +33,7 @@
     margin: auto;
 }
 
-.detail-create-review-big-div-sg{
+.detail-create-review-big-div-sg {
     display: flex;
     align-items: center;
     margin: 35px auto 35px auto;
@@ -43,14 +42,14 @@
 
 }
 
-#review-alert-msg-sg{
+#review-alert-msg-sg {
     padding-top: 10px;
     margin: auto;
     color: #484848;
     text-align: center;
 }
 
-.detail-review-rating-input-sg{
+.detail-review-rating-input-sg {
     font-size: 14px;
     line-height: 16px;
     font-weight: 400;
@@ -71,7 +70,7 @@
 
 }
 
-.detail-review-content-input-sg{
+.detail-review-content-input-sg {
     font-size: 14px;
     line-height: 16px;
     font-weight: 400;
@@ -91,7 +90,7 @@
     flex-shrink: 1;
 }
 
-.detail-create-review-send-btn-sg{
+.detail-create-review-send-btn-sg {
     all: unset;
     font-size: 20px;
     line-height: 28px;
@@ -103,14 +102,14 @@
     cursor: pointer;
 }
 
-.detail-review-big-big-container-sg{
+.detail-review-big-big-container-sg {
     padding-top: 5px;
     padding-bottom: 5px;
     margin: 35px auto 35px auto;
 
 }
 
-.detail-review-big-container-sg{
+.detail-review-big-container-sg {
     display: block;
     box-sizing: border-box;
     border-radius: 16px;
@@ -118,18 +117,18 @@
 }
 
 
-.detail-review-small-container-sg{
+.detail-review-small-container-sg {
     box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
     padding: 10px;
     border-radius: 16px;
 }
 
-.detail-review-rating-star-img-sg{
+.detail-review-rating-star-img-sg {
     width: 16px;
     height: 16px;
 }
 
-.detail-review-rating-sg{
+.detail-review-rating-sg {
     color: #a26f01;
     box-sizing: border-box;
     background-color: #f9f7d6;
@@ -142,7 +141,7 @@
     margin-right: 4px;
 }
 
-.detail-review-content-sg{
+.detail-review-content-sg {
     box-sizing: border-box;
     /* background-color: #b53e47; */
     width: 100%;
@@ -151,29 +150,29 @@
     vertical-align: middle;
 }
 
-.detail-review-author-time-container-sg{
+.detail-review-author-time-container-sg {
     box-sizing: border-box;
     display: flex;
     padding: 5px;
 }
 
-.detail-review-author-sg{
+.detail-review-author-sg {
     color: #800020;
     font-weight: bolder;
     margin-right: 10px;
     margin-left: 10px;
 }
 
-.detail-review-time-sg{
+.detail-review-time-sg {
     color: #c5ba93;
 }
 
-.detail-review-edit-delete-btn-sg{
+.detail-review-edit-delete-btn-sg {
     display: flex;
     justify-content: flex-end;
 }
 
-.detail-review-edit-btn-sg{
+.detail-review-edit-btn-sg {
     all: unset;
     color: #a26f01;
     box-sizing: border-box;
@@ -189,7 +188,7 @@
 
 }
 
-.detail-review-delete-btn-sg{
+.detail-review-delete-btn-sg {
     all: unset;
     color: #ffffff;
     box-sizing: border-box;
@@ -205,16 +204,17 @@
 
 }
 
-.slidein-sg{
+.slidein-sg {
     animation: slidein 2s ease-out forwards;
     margin-bottom: 30px;
 }
 
-@keyframes slidein{
-    from{
+@keyframes slidein {
+    from {
         margin-left: -100%;
     }
-    to{
+
+    to {
         margin-left: 0%;
     }
 }

@@ -6,36 +6,36 @@
 {% block content %}
 <div class="detail-wrap-sg">
     <div class="slidein-sg">
-    <a class="dh-mywish-card" href="/wine/{{ wine.id }}">
-        <div class="dh-mywish-right">
-            <div class="dh-mywish-right-img_box">
-                {% load index %}
-                <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}"
-                    alt="image place">
+        <div class="dh-mywish-card">
+            <div class="dh-mywish-right">
+                <div class="dh-mywish-right-img_box">
+                    {% load index %}
+                    <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}" alt="image place">
+                </div>
             </div>
-        </div>
-        <div class="dh-mywish-center">
-            <div class="dh-mywish-producer">{{ wine.producer }}</div>
-            <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
-            <div class="dh-mywish-local">{{ wine.nation }}, {{ wine.local1 }}</div>
-            <div class="dh-mywish-local">{{ wine.varieties1 }}</div>
-            {% if wine.varieties2 != 0 %}
-            <div>Blended</div>
-            {% endif %}
-            <div class="dh-mywish-rating_box">
-                <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
-                <div class="dh-mywish-price">{{ wine.price }} 원</div>
+            <div class="dh-mywish-center">
+                <div class="dh-mywish-producer">{{ wine.producer }}</div>
+                <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
+                <div class="dh-mywish-local">{{ wine.nation }}, {{ wine.local1 }}</div>
+                <div class="dh-mywish-local">{{ wine.varieties1 }}</div>
+                {% if wine.varieties2 != 0 %}
+                <div>Blended</div>
+                {% endif %}
+                <div class="dh-mywish-rating_box">
+                    <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
+                    <div class="dh-mywish-price">{{ wine.price }} 원</div>
+                </div>
             </div>
-        </div>
-        <div class="dh-mywish-left">
-            <div class="dh-mywish-producer-semi">TYPE : {{ wine.type }}</div>
-            <div class="dh-mywish-producer-semi">DEGREE : {{ wine.degree }}</div>
-            <div class="dh-mywish-producer-semi">SWEET : {{ wine.sweet }}</div>
-            <div class="dh-mywish-producer-semi">ACIDITY : {{ wine.acidity }}</div>
-            <div class="dh-mywish-producer-semi">BODY : {{ wine.body }}</div>
-            <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
-            <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
-        </div>
+            <div class="dh-mywish-left">
+                <div class="dh-mywish-producer-semi">TYPE : {{ wine.type }}</div>
+                <div class="dh-mywish-producer-semi">DEGREE : {{ wine.degree }}</div>
+                <div class="dh-mywish-producer-semi">SWEET : {{ wine.sweet }}</div>
+                <div class="dh-mywish-producer-semi">ACIDITY : {{ wine.acidity }}</div>
+                <div class="dh-mywish-producer-semi">BODY : {{ wine.body }}</div>
+                <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
+                <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
+            </div>
+
 
         <form class="dh-mywish-review-rating-star" action="{% url 'users:post_wish' id=wine.id code=1 %}"
             method="post">
@@ -104,7 +104,7 @@
 
                 </div>
                 <div class="detail-review-author-time-container-sg">
-                    <div class="detail-review-author-sg">{{ review.author.username }}</div>
+                    <div class="detail-review-author-sg">{{ review.author.nickname }}</div>
                     <div class="detail-review-time-sg">{{ review.created_at }}</div>
 
                 </div>

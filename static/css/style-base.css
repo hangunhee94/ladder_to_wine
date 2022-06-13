@@ -1,36 +1,25 @@
 .base-container {
     /* position: fixed; */
     width: 100%;
+    /* margin: 10px auto; */
     min-height: 65px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #c6ba93;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #b53e47;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .logo {
+    color: #fff;
     margin-left: 20px;
 }
+
 .logo:hover {
     box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
-}
-
-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin: 0 auto;
-    margin-bottom: 10px;
-}
-
-.body {
-    margin: 0 auto;
 }
 
 a {
@@ -41,6 +30,11 @@ a {
 hr {
     margin-top: 20px;
     background: #eee;
+}
+
+.header-signin {
+    color: #fff;
+    margin-right: 20px;
 }
 
 .header-signin:hover {
