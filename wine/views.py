@@ -15,8 +15,9 @@ import pandas as pd
 
 
 
-tmp = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data.csv')
+tmp = pd.read_csv('C:\\Users\\user\\wine\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\user\\wine\\wine_data.csv')
+
 
 
 
