@@ -24,11 +24,15 @@
     margin: -200px 0 0 -200px;
 }
 
-#search {
+#searched {
+    align-items: center;
     text-align: center;
     width: 300px;
     height: 30px;
     font-size: 20px;
+}
+.search-btn {
+    margin-right: 50px;
 }
 
 footer {
