@@ -1,0 +1,75 @@
+
+.find {
+    color: #ddd;
+    font-size: 12px;
+}
+
+.find span {
+    padding-left: 10px;
+}
+
+.find span::before {
+    content: '|';
+    color: #333;
+    padding-right: 10px;
+}
+
+.find span:nth-child(1):before {
+    content: none;
+}
+
+.find span:nth-child(1) {
+    padding-left: 0px;
+}
+
+.find a:hover {
+    color: #707070;
+}
+
+.signin-wrap {
+    min-height: 645px;
+
+}#login_form {
+    /* text-align:center; */
+    border-radius: 10px;
+    padding: 50px;
+    background: #fff2d0;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 15px;
+}
+
+.login {
+    font-size: 25px;
+    font-weight: 900;
+    color: #333;
+}
+
+.size {
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    background-color: #f4f4f4;
+    /* margin-left:10px; */
+    border: none;
+    border-radius: 5px;
+}
+
+.btn {
+    width: 310px;
+    height: 40px;
+    font-size: 15px;
+    background-color: #df3278;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background: #ca296a;
+}
+
