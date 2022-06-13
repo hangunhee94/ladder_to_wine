@@ -205,7 +205,7 @@
 }
 
 .slidein-sg {
-    animation: slidein 2s ease-out forwards;
+    animation: slidein 1s ease-out forwards;
     margin-bottom: 30px;
 }
 
