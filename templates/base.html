@@ -29,12 +29,15 @@
                 float: left;
                 width:30%;
                 box-sizing: border-box;">
-                    <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
+                    <a class="logo" href="{% url 'wines:home' %}">
+                        <img src=/static/logo7.png width="170px" height="50px" alt="">
+                    </a>
                 </div>
 
                 <form style="
+                margin-top: 10px;
                 float: left;
-                margin-left: 5%;
+                margin-left: 8%;
                 width:30%;
                 box-sizing: border-box;
                 text-align: center;" method="post" action="{% url 'wines:search' %}">
@@ -46,6 +49,7 @@
                 </form>
 
                 <div style="
+                margin-top: 10px;
                 float: right;
                 width:30%;
                 box-sizing: border-box;">
