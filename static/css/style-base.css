@@ -1,7 +1,5 @@
 .base-container {
-    /* position: fixed; */
     width: 100%;
-    /* margin: 10px auto; */
     min-height: 65px;
     display: flex;
     flex-direction: column;

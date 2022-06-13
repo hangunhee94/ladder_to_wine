@@ -53,14 +53,6 @@ def logout(request):
     auth.logout(request)
     return redirect('/sign-in')
 
-# 회원 정보 수정
-def update_user(request):
-    return
-
-# 회원 정보 탈퇴
-def delete_user(request):
-    return 
-
 # 회원 정보를 확인하고 회원이면, 회원 전용 페이지로 이동시키고,
 # 그렇지 않으면 로그인 화면으로 이동
 @login_required
@@ -71,42 +63,16 @@ def my_home(request):
     else:
         return redirect('/')
 
-
 # 찜 목록 가져오기
 @login_required
 def get_wish(request, id):
     user = UserModel.objects.get(id=id)
     if request.method == 'GET':
-        wish_lists = user.wine_wish.all()
-        # print(wish_lists)
-        wine_list = []
-        src_list = []
-        for wish_list in wish_lists:
-            # print(wish_list)
-            wine_id = wish_list.id
-            # print(wine_id)  # 숫자 키 값
-            wine = WineModel.objects.get(id=wine_id)
-            wine_list.append(wine)
+        wine_list = user.wine_wish.all()
 
-            # src 주소 불러오기
-            name_split_list = wine.name.split(',')
-            search_name = '+'.join(name_split_list)
-            year = wine.year
-
-            url = f'https://www.vivino.com/search/wines?q={search_name}+{year}' 
-            headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
-
-            wine_info = requests.get(url, headers=headers)
-            soup = BeautifulSoup(wine_info.content, 'html.parser')  
-            target_element = soup.select_one('figure')['style']
-            img_src = re.findall('\(([^)]+)', target_element)
-            img_src = img_src[0].replace('//', '')
-            src_list.append(img_src)
-
-        return render(request, 'user/my_wish.html', {'wine_list': wine_list, 'src_list':src_list})
+        return render(request, 'user/my_wish.html', {'wine_list': wine_list})
 
 # 찜 목록 추가하기
-# id = wine_id, number
 @login_required
 def post_wish(request, id, code):
     if request.method == 'POST':
@@ -121,10 +87,6 @@ def post_wish(request, id, code):
             return redirect('wines:wine_detail_view', id)
         elif code == 2:
             return redirect('users:get_wish', user.id)
-        # if number == 100:
-        #     return redirect('wines:detail', user.id)
-        # else:
-        #     return redirect('users:post_wish', user.id)
 
 # review 리스트 불러오기
 @login_required
@@ -132,22 +94,4 @@ def get_review(request, id):
     user = UserModel.objects.get(id=id)
     review_list = ReviewModel.objects.filter(author_id=user).order_by('-created_at')
 
-# 와인 정보 크롤링
-    src_list = []
-    for review in review_list:
-        name_split_list = review.wine.name.split(',')
-        search_name = '+'.join(name_split_list)
-        year = review.wine.year
-
-        url = f'https://www.vivino.com/search/wines?q={search_name}+{year}' 
-        headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
-
-        wine_info = requests.get(url, headers=headers)
-        soup = BeautifulSoup(wine_info.content, 'html.parser')  
-        target_element = soup.select_one('figure')['style']
-        img_src = re.findall('\(([^)]+)', target_element)
-        img_src = img_src[0].replace('//', '')
-        src_list.append(img_src)
-    print(src_list)
-
-    return render(request, 'user/my_review.html', {'review_list': review_list, 'src_list': src_list})
+    return render(request, 'user/my_review.html', {'review_list': review_list})

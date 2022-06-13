@@ -76,8 +76,6 @@
     padding: 10px 0 10px 0;
 
     background-color: #fffff7;
-
-    /* border: solid 3px; */
 }
 
 .dh-my-profile-box p {
@@ -128,12 +126,6 @@
     text-decoration: underline;
     background: #f9e8c0b3;
     border: solid 1px #f9e8c0b3;
-    /*
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
-    */
 }
 
 /*  */
@@ -179,7 +171,6 @@
 }
 
 .dh-mywish-card:hover {
-    /* border: 1px solid rgb(211, 211, 211); */
     box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
 }
 
@@ -190,7 +181,6 @@
 
 .dh-mywish-right {
     height: 300px;
-    /* margin-bottom: 20px; */
     margin: auto 0 auto 0;
 }
 
@@ -232,7 +222,6 @@
 
 .dh-mywish-center {
     width: 390px;
-    /* margin-top: 30px; */
     margin: auto 0 auto 0;
     padding: 5px;
 
@@ -240,7 +229,6 @@
 }
 
 .dh-mywish-left {
-    /* margin-top: 30px; */
     margin: auto 70px auto 0;
     padding: 5px;
 
@@ -282,7 +270,6 @@
     width: 500px;
     height: 50px;
 
-    /* all: unset; */
     font-size: 27px;
     font-weight: 600;
     color: #e1e0d9;
@@ -315,11 +302,8 @@
 }
 
 .dh-mywish-review-rating-sg {
-    /* color: #a26f01; */
     box-sizing: border-box;
-    /* background-color: #f9f7d6; */
     border-radius: 24px;
-    /* box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%); */
     align-items: center;
     display: inline-block;
     vertical-align: middle;
@@ -328,7 +312,6 @@
 }
 
 .dh-mywish-review-rating-sg:hover {
-    /* border: 1px solid rgb(211, 211, 211); */
     box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
 }
 

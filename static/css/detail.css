@@ -13,7 +13,6 @@
 }
 
 .sim-wine-recommendation-btn-sg {
-    /* width: 100%; */
     all: unset;
     color: #ffffff;
     box-sizing: border-box;
@@ -143,9 +142,7 @@
 
 .detail-review-content-sg {
     box-sizing: border-box;
-    /* background-color: #b53e47; */
     width: 100%;
-    /* box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%); */
     text-align: left;
     vertical-align: middle;
 }
