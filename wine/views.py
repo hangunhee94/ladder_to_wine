@@ -15,8 +15,8 @@ import pandas as pd
 
 
 
-tmp = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
-df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv')
+tmp = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data_for_recommendation.csv') # .drop('Unnamed: 0', axis=1)
+df = pd.read_csv('C:\\Users\\SG\\Desktop\\sparta-ladder\\django-recommendation\\wine_data.csv')
 
 
 
@@ -35,14 +35,17 @@ def wine_crawling(target_wines):
         wine = requests.get(url, headers=headers)
         soup = BeautifulSoup(wine.content, 'html.parser')
 
-        try:
-            wine_av = soup.select_one('.average__number').text
-            wine_av = wine_av.strip('\n')
-            if wine_av == '—':
-                wine_av = str(0.0)
-        except:
-            wine_av = 0.0
+        if target_wine.av_rating == 0:
+            try:
+                wine_av = soup.select_one('.average__number').text
+                wine_av = wine_av.strip('\n')
+                if wine_av == '—':
+                    wine_av = str(0.0)
+            except:
+                wine_av = 0.0
         # target_wine.loc[i,'av_rating'] = wine_av
+        else:
+            wine_av = target_wine.av_rating
 
         try:
             target_element = soup.select_one('figure')['style']
@@ -59,6 +62,7 @@ def wine_crawling(target_wines):
         try:
             target_wine.av_rating = wine_av
             target_wine.img_url = img_url
+            target_wine.save()
         except:
             print('error')
 
@@ -109,33 +113,36 @@ def wine_detail_view(request, id):
     wine = WineModel.objects.get(id=id)
 
     # 와인 정보 크롤링
-    name_split_list = wine.name.split(',')
-    search_name = '+'.join(name_split_list)
-    year = wine.year
 
-    url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
+    wine_list = [wine]
+    wine_list = wine_crawling(wine_list)
+    # name_split_list = wine.name.split(',')
+    # search_name = '+'.join(name_split_list)
+    # year = wine.year
 
-    wine_info = requests.get(url, headers=headers)
-    soup = BeautifulSoup(wine_info.content, 'html.parser')  
-    target_element = soup.select_one('figure')['style']
-    img_src = re.findall('\(([^)]+)', target_element)
-    img_src = img_src[0].replace('//', '')
+    # url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
+    # headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
 
-    if float(wine.av_rating) < 0.0 or wine.av_rating == '—':
-        try:
-            av_rating = soup.select_one('.average__number').text
-            av_rating = av_rating.strip('\n')
-        except:
-            av_rating = '—'
+    # wine_info = requests.get(url, headers=headers)
+    # soup = BeautifulSoup(wine_info.content, 'html.parser')  
+    # target_element = soup.select_one('figure')['style']
+    # img_src = re.findall('\(([^)]+)', target_element)
+    # img_src = img_src[0].replace('//', '')
 
-        try:
-            av_rating = av_rating.replace(',', '.')
-            av_rating = float(av_rating)
-        except:
-            pass
-    else:
-        av_rating = float(wine.av_rating)
+    # if float(wine.av_rating) < 0.0 or wine.av_rating == '—':
+    #     try:
+    #         av_rating = soup.select_one('.average__number').text
+    #         av_rating = av_rating.strip('\n')
+    #     except:
+    #         av_rating = '—'
+
+    #     try:
+    #         av_rating = av_rating.replace(',', '.')
+    #         av_rating = float(av_rating)
+    #     except:
+    #         pass
+    # else:
+    #     av_rating = float(wine.av_rating)
 
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
@@ -171,7 +178,7 @@ def wine_detail_view(request, id):
     # else:
     #     user.wine_wish.add(wine)
 
-    return render(request, 'detail.html', {'wine': wine, 'src': img_src, 'av_rating': av_rating, 'reviews': reviews, 'exist': exist, 'click_wish':click_wish})
+    return render(request, 'detail.html', {'wine': wine_list[0], 'reviews': reviews, 'exist': exist, 'click_wish':click_wish})
 
 
 @login_required
@@ -211,7 +218,6 @@ def create_review(request, id):
 @login_required
 def to_edit_review(request, review_id, wine_id, code):
     if request.method == 'POST':
-        print('this is to edit review')
         review = ReviewModel.objects.get(id=review_id)
         wine = WineModel.objects.get(id=wine_id)
         return render(request, 'edit_review.html', {'review': review, 'wine': wine, 'code': code})
@@ -253,7 +259,6 @@ def edit_review(request, review_id, wine_id, code):
         if code == 1:
             return redirect('wines:wine_detail_view', wine_id)
         elif code == 2:
-            print('this is edit review')
 
             return redirect('users:get_review', author.id)      
 
@@ -287,7 +292,6 @@ def delete_review(request, review_id, wine_id, code):
         if code == 1:
             return redirect('wines:wine_detail_view', wine_id)
         elif code == 2:
-            print('this is delete review')
             return redirect('users:get_review', user.id)      
 
 

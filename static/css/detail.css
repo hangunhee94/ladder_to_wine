@@ -14,7 +14,7 @@
 .detail-create-review-big-div-sg{
     display: flex;
     align-items: center;
-    margin: auto;
+    margin: 35px auto 35px auto;
     width: 100%;
     justify-content: space-around;
 
@@ -83,6 +83,8 @@
 .detail-review-big-big-container-sg{
     padding-top: 5px;
     padding-bottom: 5px;
+    margin: 35px auto 35px auto;
+
 }
 
 .detail-review-big-container-sg{
@@ -178,4 +180,18 @@
     margin-right: 4px;
     cursor: pointer;
 
+}
+
+.slidein-sg{
+    animation: slidein 2s ease-out forwards;
+    margin-bottom: 50px;
+}
+
+@keyframes slidein{
+    from{
+        margin-left: -100%;
+    }
+    to{
+        margin-left: 0%;
+    }
 }

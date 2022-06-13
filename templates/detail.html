@@ -5,33 +5,58 @@
 {% endblock %}
 {% block content %}
 <div class="detail-wrap-sg">
-    <div class="">
-        {% if wine in click_wish %}
-        <form action="{% url 'users:post_wish' id=wine.id code=1 %}" method="post">
-            {% csrf_token %}<button>[찜 취소]</button></form>
-        {% else %}
-        <form action="{% url 'users:post_wish' id=wine.id code=1 %}" method="post">
-            {% csrf_token %}<button>[찜하기]</button></form>
-        {% endif %}
-    </div>
-    <hr>
+    <div class="slidein-sg">
+    <a class="dh-mywish-card" href="/wine/{{ wine.id }}">
+        <div class="dh-mywish-right">
+            <div class="dh-mywish-right-img_box">
+                {% load index %}
+                <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}"
+                    alt="image place">
+            </div>
+        </div>
+        <div class="dh-mywish-center">
+            <div class="dh-mywish-producer">{{ wine.producer }}</div>
+            <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
+            <div class="dh-mywish-local">{{ wine.nation }}, {{ wine.local1 }}</div>
+            <div class="dh-mywish-local">{{ wine.varieties1 }}</div>
+            {% if wine.varieties2 != 0 %}
+            <div>Blended</div>
+            {% endif %}
+            <div class="dh-mywish-rating_box">
+                <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
+                <div class="dh-mywish-price">{{ wine.price }} 원</div>
+            </div>
+        </div>
+        <div class="dh-mywish-left">
+            <div class="dh-mywish-producer-semi">TYPE : {{ wine.type }}</div>
+            <div class="dh-mywish-producer-semi">DEGREE : {{ wine.degree }}</div>
+            <div class="dh-mywish-producer-semi">SWEET : {{ wine.sweet }}</div>
+            <div class="dh-mywish-producer-semi">ACIDITY : {{ wine.acidity }}</div>
+            <div class="dh-mywish-producer-semi">BODY : {{ wine.body }}</div>
+            <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
+            <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
+        </div>
 
-    <h3>{{ wine.name }}</h3>
-    <h3>{{ wine.year }}</h3>
-
-    <h3>{{ src }}</h3>
-    <img src="http://{{src}}" alt="image place">
-    <!-- <img src={{src}} alt="image place">
-<img src=src alt="image place">
-<img src="src" alt="image place">
- -->
-    <h3>{{ wine.nation }}</h3>
-    <h3>{{ wine.type }}</h3>
-    <h3>{{ wine.degree }}</h3>
-    <h3>{{ wine.price }}</h3>
-    <h3>{{ av_rating }}</h3>
-
-    <hr>
+        <form class="dh-mywish-review-rating-star" action="{% url 'users:post_wish' id=wine.id code=1 %}"
+            method="post">
+            {% csrf_token %}
+            {% if wine in click_wish %}
+            <button type="submit"><span class="dh-mywish-review-rating-sg"><img
+                        class="dh-mywish-review-rating-star-img-sg"
+                        src="https://images.vivino.com/web_common/rating/star_10.svg"
+                        alt="User rated star FullStar" height="28" width="29">
+                </span></button>
+            {% else %}
+            <button type="submit"><span class="dh-mywish-review-rating-sg"><img
+                class="dh-mywish-review-rating-star-img-sg"
+                src="https://images.vivino.com/web_common/rating/star_0.svg"
+                alt="User rated star NoStar" height="28" width="29">
+            </span></button>
+            {% endif %}
+        </form>
+    </a>
+</div>
+<hr>
     <div class="detail-review-wrap-sg">
 
         {% if exist == 0 %}
@@ -55,9 +80,9 @@
                 <button class="detail-create-review-send-btn-sg">Send</button>
             </form>
         </div>
+        <hr>
         {% endif %}
 
-        <hr>
         {% for review in reviews %}
 
         <div class="detail-review-big-big-container-sg">
