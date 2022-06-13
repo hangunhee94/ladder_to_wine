@@ -12,6 +12,3 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('recommend/<int:id>', views.wine_recommend_view, name='wine_recommend_view'),
 ]
-
-
-    

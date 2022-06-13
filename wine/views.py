@@ -23,7 +23,6 @@ df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\running\\wine_data.csv')
 
 
 
-# Create your views here.
 def wine_crawling(target_wines):
 
     for target_wine in target_wines:
@@ -45,7 +44,6 @@ def wine_crawling(target_wines):
                     wine_av = str(0.0)
             except:
                 wine_av = 0.0
-        # target_wine.loc[i,'av_rating'] = wine_av
         else:
             wine_av = target_wine.av_rating
 
@@ -59,16 +57,14 @@ def wine_crawling(target_wines):
         except:
             img_url = 0.0
 
-        # target_wine.loc[i,'img_url'] = img_url
 
         try:
             target_wine.av_rating = wine_av
             target_wine.img_url = img_url
             target_wine.save()
         except:
-            print('error')
+            pass
 
-        # print(i, "/", wine_av, " / ", img_url)
 
     return target_wines
 
@@ -106,7 +102,6 @@ def home(request):
     target_wines = wine_crawling(wines)
     for target_wine in target_wines:
         target_wine.price = format(target_wine.price, ",")
-        print(target_wine.price)
 
     return render(request, 'main.html', {'wines': target_wines})
 
@@ -118,54 +113,20 @@ def wine_detail_view(request, id):
 
     wine_list = [wine]
     wine_list = wine_crawling(wine_list)
-    # name_split_list = wine.name.split(',')
-    # search_name = '+'.join(name_split_list)
-    # year = wine.year
-
-    # url = f'https://www.vivino.com/search/wines?q={search_name}+{year}'
-    # headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
-
-    # wine_info = requests.get(url, headers=headers)
-    # soup = BeautifulSoup(wine_info.content, 'html.parser')  
-    # target_element = soup.select_one('figure')['style']
-    # img_src = re.findall('\(([^)]+)', target_element)
-    # img_src = img_src[0].replace('//', '')
-
-    # if float(wine.av_rating) < 0.0 or wine.av_rating == '—':
-    #     try:
-    #         av_rating = soup.select_one('.average__number').text
-    #         av_rating = av_rating.strip('\n')
-    #     except:
-    #         av_rating = '—'
-
-    #     try:
-    #         av_rating = av_rating.replace(',', '.')
-    #         av_rating = float(av_rating)
-    #     except:
-    #         pass
-    # else:
-    #     av_rating = float(wine.av_rating)
 
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
-    print(review_exist)
     if len(review_exist) == 0:
         exist = 0
     else:
         exist = 1
-    print(exist)
 
     # wish 기능
     user = request.user
     click_wish = user.wine_wish.all()
-    
-    # if wine in click_wish:
-    #     user.wine_wish.remove(wine)
-    # else:
-    #     user.wine_wish.add(wine)
 
     return render(request, 'detail.html', {'wine': wine_list[0], 'reviews': reviews, 'exist': exist, 'click_wish':click_wish})
 
@@ -248,7 +209,6 @@ def edit_review(request, review_id, wine_id, code):
         if code == 1:
             return redirect('wines:wine_detail_view', wine_id)
         elif code == 2:
-
             return redirect('users:get_review', author.id)      
 
 
@@ -293,7 +253,6 @@ def search(request):
             return render(request, 'search.html', {})
 
 def wine_recommend_view(request, id):
-
     sim_wines = similarity(id)
     sim_wines_ids = sim_wines['id'].tolist()
     
@@ -307,4 +266,3 @@ def wine_recommend_view(request, id):
     recommend_wines = sorted(result, key=lambda wine: float(wine.av_rating), reverse=True)[:4]
     recommend_wines = wine_crawling(recommend_wines)
     return render(request, 'recommend.html', {'recommend_wines': recommend_wines})
-
