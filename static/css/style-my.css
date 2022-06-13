@@ -141,6 +141,7 @@
 /* my_wish */
 
 .dh-mywish-body {
+    min-height: 620px;
     margin-top: 20px;
     padding: 0;
 }
@@ -333,4 +334,8 @@
 
 .dh-mywish-review-rating-star button {
     all: unset;
+}
+
+.review-content {
+    min-height: 645px;
 }
