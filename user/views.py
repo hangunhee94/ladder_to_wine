@@ -109,21 +109,22 @@ def get_wish(request, id):
 # id = wine_id, number
 @login_required
 def post_wish(request, id, code):
-    wine = WineModel.objects.get(id=id)
-    user = request.user
-    click_wish = user.wine_wish.all()
-    if wine in click_wish:
-        user.wine_wish.remove(wine)
-    else:
-        user.wine_wish.add(wine)
-    if code == 1:
-        return redirect('wines:wine_detail_view', id)
-    elif code == 2:
-        return redirect('users:get_wish', user.id)
-    # if number == 100:
-    #     return redirect('wines:detail', user.id)
-    # else:
-    #     return redirect('users:post_wish', user.id)
+    if request.method == 'POST':
+        wine = WineModel.objects.get(id=id)
+        user = request.user
+        click_wish = user.wine_wish.all()
+        if wine in click_wish:
+            user.wine_wish.remove(wine)
+        else:
+            user.wine_wish.add(wine)
+        if code == 1:
+            return redirect('wines:wine_detail_view', id)
+        elif code == 2:
+            return redirect('users:get_wish', user.id)
+        # if number == 100:
+        #     return redirect('wines:detail', user.id)
+        # else:
+        #     return redirect('users:post_wish', user.id)
 
 # review 리스트 불러오기
 @login_required
