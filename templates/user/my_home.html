@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}My HOME{% endblock %}
+{% block content %}
+{% if not user.is_authenticated %}
+<ul class="">
+    <li class="">
+        <a class="" href="/sign-in"> Sign In <span class=""></span></a>
+    </li>
+    <li class="">
+        <a class="" href="/sign-up"> Sign Up <span class=""></span></a>
+    </li>
+</ul>
+{% else %}
+<div class="dh-my-nav">
+    <div class="dh-nav-box">
+        <div class="dh-my-nav-menu">
+            MY PAGE
+            <!-- <a href="{% url 'users:get_wish' user.id %}">Wish List</a> -->
+        </div>
+    </div>
+</div>
+<div class="dh-my-body">
+    <!-- 배경 이미지 자리 -->
+    <div class="dh-my-backgraound">
+        <img src="">
+    </div>
+    <!-- profile -->
+    <div class="dh-my-body">
+        <div class="dh-my-profile-imgbox">
+            <hr>
+            <img src="https://cdn.emetro.co.kr/data2/content/image/2022/03/03/.cache/512/20220303500244.jpg"
+                alt="와인 사진">
+            <p>
+                " 좋은 와인 알려줄까? "
+            </p>
+            <hr>
+        </div>
+
+        <div class="dh-my-profile-box">
+            <p>
+                {{ user.nickname }} 님 반갑습니다.
+            </p>
+            <p>나만의 와인 컬렉션을 만들고, 똑똑하게 쇼핑하세요.</p>
+        </div>
+
+        <div class="dh-my-profile-button">
+            <div>
+                <a href="">개인정보 수정</a>
+            </div>
+            <div>
+                <a href="">개인정보 탈퇴</a>
+            </div>
+            <div>
+                <a href="{% url 'users:get_wish' user.id %}">Wish List</a>
+            </div>
+            <div>
+                <a href="{% url 'users:get_review' user.id %}">Review List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

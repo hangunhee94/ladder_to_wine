@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+상세페이지
+{% endblock %}
+{% block content %}
+<div class="dh-my-nav">
+    <div class="dh-nav-box">
+        <div class="dh-my-nav-menu">
+            DETAIL PAGE
+            <!-- <a href="{% url 'users:get_wish' user.id %}">Wish List</a> -->
+        </div>
+    </div>
+</div>
+
+<div class="detail-wrap-sg">
+    <div class="slidein-sg">
+        <div class="dh-mywish-card">
+            <div class="dh-mywish-right">
+                <div class="dh-mywish-right-img_box">
+                    {% load index %}
+                    <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}" alt="image place">
+                </div>
+            </div>
+            <div class="dh-mywish-center">
+                <div class="dh-mywish-producer">{{ wine.producer }}</div>
+                <div class="dh-mywish-name">{{ wine.name }} {{ wine.year }}</div>
+                <div class="dh-mywish-local">{{ wine.nation }}, {{ wine.local1 }}</div>
+                <div class="dh-mywish-local">{{ wine.varieties1 }}</div>
+                {% if wine.varieties2 != 0 %}
+                <div>Blended</div>
+                {% endif %}
+                <div class="dh-mywish-rating_box">
+                    <div class="dh-mywish-rating">{{ wine.av_rating }}</div>
+                    <div class="dh-mywish-price">{{ wine.price }} 원</div>
+                </div>
+            </div>
+            <div class="dh-mywish-left">
+                <div class="dh-mywish-producer-semi">TYPE : {{ wine.type }}</div>
+                <div class="dh-mywish-producer-semi">DEGREE : {{ wine.degree }}</div>
+                <div class="dh-mywish-producer-semi">SWEET : {{ wine.sweet }}</div>
+                <div class="dh-mywish-producer-semi">ACIDITY : {{ wine.acidity }}</div>
+                <div class="dh-mywish-producer-semi">BODY : {{ wine.body }}</div>
+                <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
+                <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
+            </div>
+
+
+            <form class="dh-mywish-review-rating-star" action="{% url 'users:post_wish' id=wine.id code=1 %}"
+                method="post">
+                {% csrf_token %}
+                {% if wine in click_wish %}
+                <button type="submit"><span class="dh-mywish-review-rating-sg"><img
+                            class="dh-mywish-review-rating-star-img-sg"
+                            src="https://images.vivino.com/web_common/rating/star_10.svg" alt="User rated star FullStar"
+                            height="28" width="29">
+                    </span></button>
+                {% else %}
+                <button type="submit"><span class="dh-mywish-review-rating-sg"><img
+                            class="dh-mywish-review-rating-star-img-sg"
+                            src="https://images.vivino.com/web_common/rating/star_0.svg" alt="User rated star NoStar"
+                            height="28" width="29">
+                    </span></button>
+                {% endif %}
+            </form>
+            </a>
+        </div>
+        <div class="sim-wine-recommendation-sg">
+            <a href="{% url 'wines:wine_recommend_view' id=wine.id %}" class="sim-wine-recommendation-btn-sg"
+                onclick="onDisplay()">비슷하고 맛있는 와인 보여줘!</a>
+        </div>
+        <hr>
+        <div class="detail-review-wrap-sg">
+
+            {% if exist == 0 %}
+            {% if messages %}
+            <hr>
+            {% for message in messages %}
+            <div id="review-alert-msg-sg">
+                {{ message.message }}
+            </div>
+            {% endfor %}
+            <hr>
+            {% endif %}
+
+            <div class="detail-create-review-big-div-sg">
+                <form action="{% url 'wines:create_review' wine.id %}" method="post">
+                    {% csrf_token %}
+                    <input class="detail-review-rating-input-sg" type="number" step="0.1" name="rating"
+                        placeholder="Rating" />
+                    <input class="detail-review-content-input-sg" type="text" name="content"
+                        placeholder="Write a comment" />
+                    <button class="detail-create-review-send-btn-sg">Send</button>
+                </form>
+            </div>
+            <hr>
+            {% endif %}
+
+            {% for review in reviews %}
+
+            <div class="detail-review-big-big-container-sg">
+                <div class="detail-review-big-container-sg">
+                    <div class="detail-review-small-container-sg">
+                        <span class="detail-review-rating-sg"><img class="detail-review-rating-star-img-sg"
+                                src="http://www.vivino.com/packs/f9218e85f6a38dbd34dec5d525c20023.svg#svgView(viewBox(0 0 29 28))"
+                                alt="User rated star FullStar" height="28" width="29">
+                            <span>
+                                {{ review.rating.rating }}
+                            </span>
+                        </span>
+                        <span class="detail-review-content-sg">
+                            {{ review.content }}
+                        </span>
+
+                    </div>
+                    <div class="detail-review-author-time-container-sg">
+                        <div class="detail-review-author-sg">{{ review.author.nickname }}</div>
+                        <div class="detail-review-time-sg">{{ review.created_at }}</div>
+
+                    </div>
+                    {% if review.author == user %}
+
+                    <div class="detail-review-edit-delete-btn-sg">
+                        <form action="{% url 'wines:to_edit_review' review_id=review.id wine_id=wine.id code=1 %}"
+                            method="post">
+                            {% csrf_token %}
+                            <input class="detail-review-edit-btn-sg" type="submit" value="수정">
+                        </form>
+                        <form action="{% url 'wines:delete_review' review_id=review.id wine_id=wine.id code=1 %}"
+                            method="post">
+                            {% csrf_token %}
+                            <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif%}
+
+            {% endfor %}
+
+            {% endblock %}

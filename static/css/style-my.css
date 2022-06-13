@@ -1,0 +1,411 @@
+.dh-my-body hr {
+    width: 100%;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 3px solid #e5e5e5;
+    border-bottom: 3px solid #e5e5e5;
+
+    background: #eee;
+}
+
+.dh-my-body {
+    width: 1250px;
+    margin: auto;
+
+    background-color: #fffff7
+}
+
+.dh-my-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 1200px;
+    height: 100%;
+
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.dh-my-profile-imgbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    background-color: #F9E8C0;
+
+    margin-bottom: 30px;
+}
+
+.dh-my-profile-imgbox img {
+    width: 520px;
+    height: 100%;
+
+    margin-bottom: 10px;
+    margin-top: 30px;
+
+    border-radius: 20px;
+    filter: drop-shadow(5px 5px 5px #000);
+
+}
+
+.dh-my-profile-imgbox p {
+
+
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgb(199, 219, 224);
+}
+
+
+.dh-my-profile-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 520px;
+    height: 100%;
+
+    padding: 10px 0 10px 0;
+
+    background-color: #fffff7;
+
+    /* border: solid 3px; */
+}
+
+.dh-my-profile-box p {
+    margin: 0 auto;
+
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgb(45, 205, 249);
+}
+
+.dh-my-profile-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 540px;
+
+    margin-top: 30px;
+}
+
+.dh-my-profile-button div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 230px;
+    height: 100px;
+
+    margin: 5px;
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #F9E8C0;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #F9E8C0;
+    color: #fee1cc;
+    text-decoration: none;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.dh-my-profile-button div:hover {
+    text-decoration: underline;
+    background: #f9e8c0b3;
+    border: solid 1px #f9e8c0b3;
+    /*
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 1px rgba(0, 0, 0, 0.4);
+    */
+}
+
+/*  */
+/*  */
+/* my_wish */
+
+.dh-mywish-body {
+    min-height: 620px;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.dh-mywish-section {
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+
+.dh-mywish-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 10px;
+}
+
+.dh-mywish-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    width: 1200px;
+    min-height: 400px;
+
+    margin: 15px;
+    padding: 30px;
+
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+
+}
+
+.dh-mywish-card:hover {
+    /* border: 1px solid rgb(211, 211, 211); */
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+.dh-mywish-card-box {
+    margin-bottom: 40px;
+
+}
+
+.dh-mywish-right {
+    height: 300px;
+    /* margin-bottom: 20px; */
+    margin: auto 0 auto 0;
+}
+
+.dh-mywish-right-img_box {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+
+.dh-mywish-right-img {
+    min-height: 300px;
+    width: 250px;
+}
+
+.dh-mywish-rating_box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    margin: 40px 5px 5px 5px;
+
+    text-align: center;
+}
+
+.dh-mywish-rating {
+    font-size: 50px;
+    font-weight: 600;
+    color: rgb(188, 67, 67);
+}
+
+.dh-mywish-price {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.dh-mywish-center {
+    width: 390px;
+    /* margin-top: 30px; */
+    margin: auto 0 auto 0;
+    padding: 5px;
+
+    font-weight: 500;
+}
+
+.dh-mywish-left {
+    /* margin-top: 30px; */
+    margin: auto 70px auto 0;
+    padding: 5px;
+
+    font-weight: 500;
+}
+
+.dh-mywish-producer {
+    font-size: 20px;
+    color: rgb(121, 121, 121);
+}
+
+.dh-mywish-producer-semi {
+    font-size: 25px;
+    font-family: system-ui;
+    font-weight: 600;
+    color: rgb(121, 121, 121);
+    margin-bottom: 5px;
+}
+
+.dh-mywish-name {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.dh-mywish-local {
+    font-size: 20px;
+}
+
+.dh-mywish-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 4px 8px;
+    margin-right: 4px;
+    cursor: pointer;
+
+    width: 500px;
+    height: 50px;
+
+    /* all: unset; */
+    font-size: 27px;
+    font-weight: 600;
+    color: #e1e0d9;
+    box-sizing: border-box;
+    background-color: #b53e47;
+    border-radius: 24px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+
+    margin-bottom: 60px;
+
+}
+
+.dh-mywish-btn:hover {
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+/*  */
+/*  */
+/* 와인카드 찜하기 별 */
+.dh-mywish-review-rating-star {
+    float: right;
+    margin-top: 20px;
+
+
+}
+
+.dh-mywish-review-rating-star-img-sg {
+    width: 50px;
+    height: 50px;
+}
+
+.dh-mywish-review-rating-sg {
+    /* color: #a26f01; */
+    box-sizing: border-box;
+    /* background-color: #f9f7d6; */
+    border-radius: 24px;
+    /* box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%); */
+    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px 8px;
+    margin-right: 15px;
+}
+
+.dh-mywish-review-rating-sg:hover {
+    /* border: 1px solid rgb(211, 211, 211); */
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+.dh-mywish-review-rating-star button {
+    all: unset;
+}
+
+.review-content {
+    min-height: 645px;
+}
+
+.dh-mywish-review-box {
+    width: 1000px;
+}
+
+/*  */
+/*  */
+/* 개인 페이지 정보바 */
+
+.dh-my-nav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.dh-my-nav-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 1260px;
+    height: 40px;
+
+    background-color: #b53e48b9;
+    border-radius: 0 0 15px 15px;
+}
+
+.dh-nav-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1260px;
+    height: 40px;
+
+    background-color: #b53e48b9;
+    border-radius: 0 0 15px 15px;
+}
+
+.dh-my-nav-menu {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dh-my-nav-menu a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dh-my-nav-menu a:hover {
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 15%), 0 -8px 24px 0 rgb(234 224 218 / 20%);
+}
+
+.slidein-dh {
+    animation: slidein 3s ease-out forwards;
+    /* margin-bottom: 30px; */
+}
+
+@keyframes slidein {
+    from {
+        margin-top: -20%;
+    }
+
+    to {
+        margin-left: 0%;
+    }
+}

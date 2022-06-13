@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+회원가입
+{% endblock %}
+{% block content %}
+<div class="signin-wrap">
+    <div id="login_form">
+        <!--로그인 폼-->
+        <form method="post" action="/sign-up/">
+            {% csrf_token %}
+            <h3 class="login" style="letter-spacing:-1px;">Ladder to Wine</h3>
+            <hr>
+            <!-- <span>ID</span> -->
+            <p style="text-align: left; font-size:12px; color:#666">username</p>
+            <input type="text" placeholder="아이디" class="size" id="username" name="username">
+            <p></p>
+            </label>
+            <!--아이디-->
+
+            <label>
+                <!-- <span>PW</span> -->
+                <p style="text-align: left; font-size:12px; color:#666">nickname</p>
+                <input type="text" placeholder="닉네임" class="size" id="nickname" name="nickname">
+            </label>
+            <!--닉네임-->
+
+            <label>
+                <!-- <span>PW</span> -->
+                <p style="text-align: left; font-size:12px; color:#666">Password </p>
+                <input type="password" placeholder="비밀번호" class="size" id="password" name="password">
+            </label>
+            <!--비밀번호-->
+
+            <label>
+                <!-- <span>PW</span> -->
+                <p style="text-align: left; font-size:12px; color:#666"> </p>
+                <input type="password" placeholder="비밀번호 확인" class="size" id="password2" name="password2">
+            </label>
+            <!--비밀번호 확인-->
+
+
+
+            <br>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            <p>
+                <button type="submit" class="sign-btn btn-primary">회원가입</button>
+            </p>
+        </form>
+
+        <hr>
+        <p class="find">
+            <span><a href="/sign-in">로그인 페이지로 이동</a></span>
+        </p>
+    </div>
+</div>
+{% endblock %}

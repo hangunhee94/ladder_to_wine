@@ -1,0 +1,114 @@
+.main {
+    margin: 0;
+    padding: 0;
+}
+
+.main-background-img-sg{
+    background: url(https://images.ctfassets.net/8x8155mjsjdj/1af9dvSFEPGCzaKvs8XQ5O/a7d4adc8f9573183394ef2853afeb0b6/Copy_of_Red_Wine_Blog_Post_Header.png) fixed;
+    background-position: 100px;
+    height: 400px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-size: cover;
+}
+
+.main-background-img-sg div{
+    margin-left: 100px;
+}
+
+.main-greeting-msg-sg{
+    /* position: absolute; */
+    color: #ffffff;
+    font-size: 4rem;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.main-section {
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+
+.main-s-box {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 10px;
+}
+
+.main-s-p-card {
+    width: 300px;
+    min-height: 400px;
+
+    margin: 15px;
+    padding: 30px;
+
+    /* border: 1px solid rgb(211, 211, 211); */
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px rgb(87 87 87 / 10%), 0 8px 8px 0 rgb(234 224 218 / 30%);
+
+}
+
+.main-s-p-card:hover {
+    /* border: 1px solid rgb(211, 211, 211); */
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+.main-s-p-c-top {
+    height: 300px;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.main-s-p-c-t-img_box {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    overflow: hidden;
+}
+
+.main-s-p-c-t-img {
+    min-height: 300px;
+    width: 250px;
+}
+
+.main-s-p-c-t-rating_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 60px 5px 5px 5px;
+
+    text-align: center;
+}
+
+.main-s-p-c-t-rating {
+    font-size: 50px;
+    font-weight: 600;
+    color: rgb(188, 67, 67);
+}
+
+.main-s-p-c-t-price {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.main-s-p-c-bottom {
+    margin-top: 30px;
+    padding: 5px;
+
+    font-weight: 500;
+}
+
+.main-s-p-c-b-producer {
+    font-size: 20px;
+    color: rgb(121, 121, 121);
+}
+
+.main-s-p-c-b-name {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.main-s-p-c-b-local {
+    font-size: 20px;
+}

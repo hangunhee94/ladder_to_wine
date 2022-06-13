@@ -1,0 +1,25 @@
+.search-wine:hover {
+    box-shadow: 0 8px 8px 0 rgb(51 48 48 / 20%), 0 -8px 24px 0 rgb(234 224 218 / 30%);
+}
+
+.search-content {
+    min-height: 645px;
+}
+
+.search-height {
+    min-height: 460px;
+}
+
+#searched {
+    align-items: center;
+    text-align: center;
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.search-btn {
+    /* margin-right: 50px; */
+}
+
+.search-bar {}

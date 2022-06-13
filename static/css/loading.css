@@ -1,0 +1,64 @@
+/* 로딩화면 */
+
+.loading-liquid-img-sg{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(243, 241, 241, 0.5);
+    backdrop-filter: blur(1.3px);
+    -webkit-backdrop-filter: blur(1.3px);
+}
+
+.loading-liquid-img-box-sg{
+    position: relative;
+    background: #b53e47;
+    border: 0.1rem solid #b53e47;
+    border-radius: 4rem;
+    height: 8rem;
+    overflow: hidden;
+    width: 8rem;
+    outline: 0;
+}
+
+.loading-liquid-img-box-sg::before{
+    content: url(/static/images/st-white.svg);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-liquid-img-box-sg::after{
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    background: #ffffff;
+    height: 200%;
+    width: 200%;
+    border-radius: 40%;
+    animation: spin 5s ease-in-out infinite;
+
+}
+
+@keyframes spin{
+    0%{
+        transform: translateY(-20%) rotate(0deg);
+    }
+    100%{
+        transform: translateY(-80%) rotate(450deg);
+    }
+}
+
+.loading-text-sg{
+    font-size: 1.5rem;
+    color: #b53e47;
+    font-weight: 530;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+
+    <!-- CSS불러오기 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | Ladder to Wine</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function onDisplay() {
+            $('.loading-liquid-img-sg').show();
+            document.body.style.overflow = "hidden";
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+    <nav>
+        <div class="base-container">
+            <div>
+                <div style="
+                float: left;
+                width:30%;
+                box-sizing: border-box;">
+                    <a class="logo" href="{% url 'wines:home' %}">
+                        <img src=/static/logo7.png width="170px" height="50px" alt="">
+                    </a>
+                </div>
+
+                <form style="
+                margin-top: 10px;
+                float: left;
+                margin-left: 8%;
+                width:30%;
+                box-sizing: border-box;
+                text-align: center;" method="post" action="{% url 'wines:search' %}">
+                    {% csrf_token %}
+                    <div class="search-bar">
+                        <input type="search" placeholder="와인 검색" aria-label="Search" id="searched" name="searched">
+                        <input type="submit" value="검색" class="search-btn">
+                    </div>
+                </form>
+
+                <div style="
+                margin-top: 10px;
+                float: right;
+                width:30%;
+                box-sizing: border-box;">
+                    <form style="float: right;">
+                        {% if not user.is_authenticated %}
+                        <div>
+                            <div>
+                                <a class="header-signin" href="{% url 'users:sign-in' %}"> Sign In </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div style="display: flex;">
+                            <div>
+                                <a class="header-signin" href="{% url 'users:my_home' %}">
+                                    {{ user.nickname }} 님 반갑습니다.
+                                </a>
+                            </div>
+                            <div>
+                                <a class="header-signin" href="{% url 'users:logout' %}"> 로그아웃 </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="body-wrapper">
+        <div class="body-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <span>LADDER BUSINESS PLATFORM Copyright © Ladder Corp. All Rights Reserved.</span>
+            </div>
+        </footer>
+        <div class="loading-liquid-img-sg" style="display: none;">
+            <div class="loading-liquid-img-box-sg"></div>
+            <p class="loading-text-sg">LOADING...</p>
+        </div>
+
+</body>
+
+</html>
