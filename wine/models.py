@@ -45,7 +45,7 @@ class WineModel(models.Model):
     av_rating = models.FloatField(max_length=256, default='')
     img_url = models.CharField(max_length=256, default='')
 
-    wish = models.ManyToManyField(UserModel)
+    wish = models.ManyToManyField(UserModel, related_name='wine_wish')
 
 
 class RatingModel(models.Model):
