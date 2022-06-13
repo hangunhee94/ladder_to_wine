@@ -140,8 +140,6 @@ def wine_detail_view(request, id):
     # 리뷰
     reviews = ReviewModel.objects.filter(wine=wine).order_by('-created_at')
 
-<<<<<<< HEAD
-
     # 추천 와인
     
     # sim_wines = similarity(id)
@@ -155,8 +153,6 @@ def wine_detail_view(request, id):
 
     # result2 = sorted(result, key=lambda wine: wine.av_rating, reverse=True)[:4]
 
-=======
->>>>>>> recommend2
     # 기존 작성 리뷰 여부
     review_exist = ReviewModel.objects.filter(author=request.user, wine=wine)
     print(review_exist)
@@ -303,9 +299,6 @@ def search(request):
         else:
             return render(request, 'search.html', {})
 
-<<<<<<< HEAD
-=======
-
 def wine_recommend_view(request, project_id):
 
     sim_wines = similarity(project_id)
@@ -322,60 +315,3 @@ def wine_recommend_view(request, project_id):
     print(recommend_wines)
     return render(request, 'recommend.html', {'recommend_wines': recommend_wines})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def add(request):
-    print('start')
-    df = pd.read_csv('C:\\Users\\Lee_DH\\Desktop\\\running\\wine_data.csv').drop('Unnamed: 0', axis=1)
-
-    for i in range(0, 100):
-
-        wine = WineModel()
-        wine.name = df['name'][i]
-        wine.producer = df['producer'][i]
-        wine.nation = df['nation'][i]
-        wine.local1 = df['local1'][i]
-        wine.local2 = df['local2'][i]
-        wine.local3 = df['local3'][i]
-        wine.local4 = df['local4'][i]
-
-        wine.varieties1 = df['varieties1'][i]
-        wine.varieties2 = df['varieties2'][i]
-        wine.varieties3 = df['varieties3'][i]
-        wine.varieties4 = df['varieties4'][i]
-        wine.varieties5 = df['varieties5'][i]
-        wine.varieties6 = df['varieties6'][i]
-        wine.varieties7 = df['varieties7'][i]
-        wine.varieties8 = df['varieties8'][i]
-        wine.varieties9 = df['varieties9'][i]
-        wine.varieties10 = df['varieties10'][i]
-        wine.varieties11 = df['varieties11'][i]
-
-        wine.year = df['year'][i]
-        wine.type = df['type'][i]
-        wine.degree = 0
-        wine.sweet = 0
-        wine.acidity = 0
-        wine.body = 0
-        wine.tannin = 0
-        wine.price = df['price'][i]
-        wine.av_rating = 0
-        
-        wine.save()
-
-    print('end')
-    return render(request, 'detail.html')
->>>>>>> recommend2
