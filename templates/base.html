@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
 
     <!-- CSS불러오기 -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-   
+
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Ladder to Wine</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-    function onDisplay(){
-        $('.loading-box-div-sg').show();
-        document.body.style.overflow = "hidden";
-    }
-       
+        function onDisplay() {
+            $('.loading-box-div-sg').show();
+            document.body.style.overflow = "hidden";
+        }
+
     </script>
-    
-     
+
+
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                 </div>
 
             </form>
-            
+
             <div>
                 <form>
                     {% if not user.is_authenticated %}
@@ -77,7 +78,7 @@
             <span>LOADING</span>
         </div>
     </div>
-        
+
 </body>
 
 </html>
