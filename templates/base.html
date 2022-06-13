@@ -24,7 +24,7 @@
     <nav>
         <div class="base-container">
             <div>
-                <a class="logo" href="{% url 'wines:home' %}"">Ladder to Wine</a>
+                <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
             </div>
             <form method="post" action="{% url 'wines:search' %}">
                 {% csrf_token %}
