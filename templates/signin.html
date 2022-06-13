@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+로그인
+{% endblock %}
+{% block content %}
+<div class="signin-wrap">
+    <div id="login_form">
+        <!--로그인 폼-->
+        <form method="post" action="/sign-in/">
+            {% csrf_token %}
+            <h3 class="login" style="letter-spacing:-1px;">Ladder to Wine</h3>
+            <hr>
+            <label>
+                <p style="text-align: left; font-size:12px; color:#666">Username</p>
+                <input type="text" placeholder="아이디를 입력" id="username" name="username" class="size">
+                <p></p>
+            </label>
+
+            <label>
+                <p style="text-align: left; font-size:12px; color:#666">Password </p>
+                <input type="password" placeholder="비밀번호를 입력" id="password" name="password" class="size">
+            </label>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            <p>
+                <input type="submit" value="로그인" class="sign-btn">
+            </p>
+        </form>
+        <hr>
+        <p class="find">
+            <span><a href="">아이디 찾기</a></span>
+            <span><a href="">비밀번호 찾기</a></span>
+            <span><a href="/sign-up">회원가입</a></span>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

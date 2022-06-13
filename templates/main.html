@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+{% block content %}
+
+<div class="main">
+    <section class="main-background-img-sg">
+        <div>
+        <h1 class="main-greeting-msg-sg">LIFE IS TOO SHORT <br>TO DRINK BAD WINE</h1>
+    </div>
+    </section>
+    <div class="main-section">
+        <div class="main-s-box">
+            {% for wine in wines %}
+            <a class="main-s-p-card" href="{% url 'wines:wine_detail_view' wine.pk %}">
+                <div class="main-s-p-c-top">
+                    <div class="main-s-p-c-t-img_box">
+                        <img src="https://{{ wine.img_url }}" class="main-s-p-c-t-img" alt="image place">
+                    </div>
+                    <div class="main-s-p-c-t-rating_box">
+                        <div class="main-s-p-c-t-rating">{{ wine.av_rating }}</div>
+                        <div class="main-s-p-c-t-price">{{ wine.price }} 원</div>
+                    </div>
+                </div>
+                <div class="main-s-p-c-bottom">
+                    <div class="main-s-p-c-b-producer">{{ wine.producer }}</div>
+                    <div class="main-s-p-c-b-name">{{ wine.name }} {{ wine.year }}</div>
+                    <div class="main-s-p-c-b-local">{{ wine.nation }}, {{ wine.local1 }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My REVIEW
+{% endblock %}
+{% block content %}
+{% if not user.is_authenticated %}
+{% else %}
+<div class="dh-my-nav">
+    <div class="dh-my-nav-box">
+        <div class="dh-my-nav-menu">
+            <a href="{% url 'users:get_wish' user.id %}">WISH LIST</a>
+        </div>
+        <div class="dh-my-nav-menu">
+            <a href="{% url 'users:get_review' user.id %}">REVIEW LIST</a>
+        </div>
+    </div>
+</div>
+<!-- 사용자 리스트 반복문 -->
+<div style="min-height: 700px;">
+    <div class="dh-mywish-body">
+        <div class="dh-mywish-section">
+            <div class="dh-mywish-box">
+                {% for review in review_list %}
+                <a class="dh-mywish-card" href="/wine/{{ review.wine.id }}">
+                    <div class="dh-mywish-right">
+                        <div class="dh-mywish-right-img_box">
+                            {% load index %}
+                            <img class="dh-mywish-right-img" src="http://{{ review.wine.img_url }}" alt="image place">
+                        </div>
+                    </div>
+                    <div class="dh-mywish-center">
+                        <div class="dh-mywish-producer">{{ review.wine.producer }}</div>
+                        <div class="dh-mywish-name">{{ review.wine.name }} {{ review.wine.year }}</div>
+                        <div class="dh-mywish-local">{{ review.wine.nation }}, {{ review.wine.local1 }}</div>
+                        <div class="dh-mywish-local">{{ review.wine.varieties1 }}</div>
+                        {% if review.wine.varieties2 != 0 %}
+                        <div>Blended</div>
+                        {% endif %}
+                        <div class="dh-mywish-rating_box">
+                            <div class="dh-mywish-rating">{{ review.wine.av_rating }}</div>
+                            <div class="dh-mywish-price">{{ review.wine.price }} 원</div>
+                        </div>
+                    </div>
+                    <div class="dh-mywish-left">
+                        <div class="dh-mywish-producer-semi">TYPE : {{ review.wine.type }}</div>
+                        <div class="dh-mywish-producer-semi">DEGREE : {{ review.wine.degree }}</div>
+                        <div class="dh-mywish-producer-semi">SWEET : {{ review.wine.sweet }}</div>
+                        <div class="dh-mywish-producer-semi">ACIDITY : {{ review.wine.acidity }}</div>
+                        <div class="dh-mywish-producer-semi">BODY : {{ review.wine.body }}</div>
+                        <div class="dh-mywish-producer-semi">TANNIN : {{ review.wine.tannin }}</div>
+                        <div class="dh-mywish-producer-semi">VOLUME : {{ review.wine.ml }} ml</div>
+                    </div>
+
+                </a>
+                <div class="dh-mywish-review-box">
+                    <div class="detail-review-big-container-sg">
+                        <div class="detail-review-small-container-sg">
+                            <span class="detail-review-rating-sg"><img class="detail-review-rating-star-img-sg"
+                                    src="http://www.vivino.com/packs/f9218e85f6a38dbd34dec5d525c20023.svg#svgView(viewBox(0 0 29 28))"
+                                    alt="User rated star FullStar" height="28" width="29">
+                                <span>
+                                    {{ review.rating.rating }}
+                                </span>
+                            </span>
+                            <span class="detail-review-content-sg">
+                                {{ review.content }}
+                            </span>
+                        </div>
+                        <div class="detail-review-author-time-container-sg">
+                            <div class="detail-review-author-sg">{{ review.author.nickname }}</div>
+                            <div class="detail-review-time-sg">{{ review.created_at }}</div>
+                        </div>
+
+                        {% if review.author == user %}
+
+                        <div class="detail-review-edit-delete-btn-sg">
+                            <form
+                                action="{% url 'wines:to_edit_review' review_id=review.id wine_id=review.wine.id code=2 %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input class="detail-review-edit-btn-sg" type="submit" value="수정">
+                            </form>
+                            <form
+                                action="{% url 'wines:delete_review' review_id=review.id wine_id=review.wine.id code=2 %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input class="detail-review-delete-btn-sg" type="submit" value="삭제">
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}
