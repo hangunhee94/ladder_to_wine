@@ -25,37 +25,53 @@
     <nav>
         <div class="base-container">
             <div>
-                <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
-            </div>
-            <form method="post" action="{% url 'wines:search' %}">
-                {% csrf_token %}
-                <div class="search-bar">
-                    <input type="search" placeholder="와인 검색" aria-label="Search" id="searched" name="searched">
-                    <input type="submit" value="검색" class="search-btn">
+                <div style="
+                float: left;
+                width:30%;
+                box-sizing: border-box;">
+                    <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
                 </div>
 
-            </form>
-
-            <div>
-                <form>
-                    {% if not user.is_authenticated %}
-                    <div>
-                        <div>
-                            <a class="header-signin" href="{% url 'users:sign-in' %}"> Sign In </a>
-                        </div>
+                <form style="
+                float: left;
+                margin-left: 5%;
+                width:30%;
+                box-sizing: border-box;
+                text-align: center;" method="post" action="{% url 'wines:search' %}">
+                    {% csrf_token %}
+                    <div class="search-bar">
+                        <input type="search" placeholder="와인 검색" aria-label="Search" id="searched" name="searched">
+                        <input type="submit" value="검색" class="search-btn">
                     </div>
-                    {% else %}
-                    <div>
-                        <a class="header-signin" href="{% url 'users:my_home' %}">
-                            {{ user.nickname }} 님 반갑습니다.
-                        </a>
-                    </div>
-                    <div>
-                        <a class="header-signin" href="{% url 'users:logout' %}"> 로그아웃 </a>
-                    </div>
-                    {% endif %}
                 </form>
+
+                <div style="
+                float: right;
+                width:30%;
+                box-sizing: border-box;">
+                    <form style="float: right;">
+                        {% if not user.is_authenticated %}
+                        <div>
+                            <div>
+                                <a class="header-signin" href="{% url 'users:sign-in' %}"> Sign In </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div style="display: flex;">
+                            <div>
+                                <a class="header-signin" href="{% url 'users:my_home' %}">
+                                    {{ user.nickname }} 님 반갑습니다.
+                                </a>
+                            </div>
+                            <div>
+                                <a class="header-signin" href="{% url 'users:logout' %}"> 로그아웃 </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
             </div>
+
         </div>
     </nav>
 

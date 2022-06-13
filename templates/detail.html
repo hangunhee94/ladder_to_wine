@@ -6,7 +6,7 @@
 {% block content %}
 <div class="detail-wrap-sg">
     <div class="slidein-sg">
-        <a class="dh-mywish-card" href="/wine/{{ wine.id }}">
+        <div class="dh-mywish-card">
             <div class="dh-mywish-right">
                 <div class="dh-mywish-right-img_box">
                     {% load index %}
@@ -53,7 +53,7 @@
                     </span></button>
                 {% endif %}
             </form>
-        </a>
+        </div>
     </div>
     <hr>
     <div class="detail-review-wrap-sg">
@@ -100,7 +100,7 @@
 
                 </div>
                 <div class="detail-review-author-time-container-sg">
-                    <div class="detail-review-author-sg">{{ review.author.username }}</div>
+                    <div class="detail-review-author-sg">{{ review.author.nickname }}</div>
                     <div class="detail-review-time-sg">{{ review.created_at }}</div>
 
                 </div>
