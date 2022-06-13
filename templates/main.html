@@ -4,29 +4,28 @@
 
 {% endblock %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>안녕하세요</h1>
-    {% for wine in wines %}
-    <a href="{% url 'wines:wine_detail_view' wine.pk %}">
-        <img src="https://{{ wine.img_url }}" width="200" alt="image place">
-        <p>{{ wine.av_rating }}</p>
-        <p>{{ wine.price }} 원</p>
-        <p>{{ wine.producer }}</p>
-        <p>{{ wine.name }} {{ wine.year }}</p>
-        <p>{{ wine.local2 }}, {{ wine.local1 }}</p>
-    </a>
-    {% endfor %}
-</body>
-
-</html>
+<div class="main">
+    <div class="main-section">
+        <div class="main-s-box">
+            {% for wine in wines %}
+            <a class="main-s-p-card" href="{% url 'wines:wine_detail_view' wine.pk %}">
+                <div class="main-s-p-c-top">
+                    <div class="main-s-p-c-t-img_box">
+                        <img src="https://{{ wine.img_url }}" class="main-s-p-c-t-img" alt="image place">
+                    </div>
+                    <div class="main-s-p-c-t-rating_box">
+                        <div class="main-s-p-c-t-rating">{{ wine.av_rating }}</div>
+                        <div class="main-s-p-c-t-price">{{ wine.price }} 원</div>
+                    </div>
+                </div>
+                <div class="main-s-p-c-bottom">
+                    <div class="main-s-p-c-b-producer">{{ wine.producer }}</div>
+                    <div class="main-s-p-c-b-name">{{ wine.name }} {{ wine.year }}</div>
+                    <div class="main-s-p-c-b-local">{{ wine.local2 }}, {{ wine.local1 }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
