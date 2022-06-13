@@ -23,7 +23,7 @@
 
 <body>
     <nav>
-        <div class="container">
+        <div class="base-container">
             <div>
                 <a class="logo" href="{% url 'wines:home' %}">Ladder to Wine</a>
             </div>
@@ -31,6 +31,7 @@
                 {% csrf_token %}
                 <div class="search-bar">
                     <input type="search" placeholder="와인 검색" aria-label="Search" id="searched" name="searched">
+                    <input type="submit" value="검색" class="search-btn">
                 </div>
 
             </form>
@@ -40,17 +41,17 @@
                     {% if not user.is_authenticated %}
                     <div>
                         <div>
-                            <a class="header-signin" href="/sign-in"> Sign In </a>
+                            <a class="header-signin" href="{% url 'users:sign-in' %}"> Sign In </a>
                         </div>
                     </div>
                     {% else %}
                     <div>
-                        <a class="" href="/my">
+                        <a class="header-signin" href="{% url 'users:my_home' %}">
                             {{ user.nickname }} 님 반갑습니다.
                         </a>
                     </div>
                     <div>
-                        <a class="" href="/logout"> 로그아웃 </a>
+                        <a class="header-signin" href="{% url 'users:logout' %}"> 로그아웃 </a>
                     </div>
                     {% endif %}
                 </form>
@@ -62,11 +63,9 @@
     {% endblock %}
 
     <footer>
-        <nav>
             <div class="footer-content">
                 <span>LADDER BUSINESS PLATFORM Copyright © Ladder Corp. All Rights Reserved.</span>
             </div>
-        </nav>
     </footer>
     <div class="loading-box-div-sg" style="display: none;">
         <div class="wrapper">

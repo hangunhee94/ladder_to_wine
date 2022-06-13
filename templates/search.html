@@ -6,21 +6,29 @@
 {% block content %}
 
     {% if searched %}
-        <br>
-        <br>
         <div>
-            <h1> 검색하신 {{ searched }} 정보입니다. </h1>
+            <div>
+                <div>
+                    <h2> " {{ searched }} "가 포함된 와인을 검색하였습니다. </h2>
+                </div>
+                <br>
+                {% for WineModel in winename %}
+                    <p>
+                        <a href="/wine/{{ WineModel.id }}" class="search-wine">- {{ WineModel.name }} {{ WineModel.year}} </a> <br>
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="search-height">
+                
+            </div>
+            {% else %}
+            <div class="search-content">
+                <br>
+                <br>
+                <h1> 찾고 있는 와인을 검색창에 입력해주세요. </h1>
+            </div>
         </div>
-        <br>
-        {% for WineModel in winename %}
-            <a href="/wine/{{ WineModel.id }}"> {{ WineModel.name }} </a> <br>
-        {% endfor %}
-    {% else %}
-        <div>
-            <br>
-            <br>
-            <h1> 찾고 있는 와인을 검색창에 입력해주세요. </h1>
-        </div>    
+            
     {% endif %}
 
 {% endblock %}
