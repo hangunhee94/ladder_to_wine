@@ -4,7 +4,14 @@
 추천 와인 페이지
 {% endblock %}
 {% block content %}
-
+<div class="dh-my-nav">
+    <div class="dh-nav-box">
+        <div class="dh-my-nav-menu">
+            추천페이지
+            <!-- <a href="{% url 'users:get_wish' user.id %}">Wish List</a> -->
+        </div>
+    </div>
+</div>
 
 <div class="recommend-wrap-div-sg">
     {% for wine in recommend_wines %}
@@ -13,8 +20,7 @@
             <div class="dh-mywish-right">
                 <div class="dh-mywish-right-img_box">
                     {% load index %}
-                    <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}"
-                        alt="image place">
+                    <img class="dh-mywish-right-img" src="http://{{ wine.img_url }}" alt="image place">
                 </div>
             </div>
             <div class="dh-mywish-center">
@@ -39,27 +45,27 @@
                 <div class="dh-mywish-producer-semi">TANNIN : {{ wine.tannin }}</div>
                 <div class="dh-mywish-producer-semi">VOLUME : {{ wine.ml }} ml</div>
             </div>
-    
+
             <form class="dh-mywish-review-rating-star" action="{% url 'users:post_wish' id=wine.id code=1 %}"
                 method="post">
                 {% csrf_token %}
                 {% if wine in click_wish %}
                 <button type="submit"><span class="dh-mywish-review-rating-sg"><img
                             class="dh-mywish-review-rating-star-img-sg"
-                            src="https://images.vivino.com/web_common/rating/star_10.svg"
-                            alt="User rated star FullStar" height="28" width="29">
+                            src="https://images.vivino.com/web_common/rating/star_10.svg" alt="User rated star FullStar"
+                            height="28" width="29">
                     </span></button>
                 {% else %}
                 <button type="submit"><span class="dh-mywish-review-rating-sg"><img
-                    class="dh-mywish-review-rating-star-img-sg"
-                    src="https://images.vivino.com/web_common/rating/star_0.svg"
-                    alt="User rated star NoStar" height="28" width="29">
-                </span></button>
+                            class="dh-mywish-review-rating-star-img-sg"
+                            src="https://images.vivino.com/web_common/rating/star_0.svg" alt="User rated star NoStar"
+                            height="28" width="29">
+                    </span></button>
                 {% endif %}
             </form>
         </a>
     </div>
-        {% endfor %}
+    {% endfor %}
 </div>
 
 

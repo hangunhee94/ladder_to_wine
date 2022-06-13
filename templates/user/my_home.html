@@ -12,6 +12,14 @@
     </li>
 </ul>
 {% else %}
+<div class="dh-my-nav">
+    <div class="dh-nav-box">
+        <div class="dh-my-nav-menu">
+            MY PAGE
+            <!-- <a href="{% url 'users:get_wish' user.id %}">Wish List</a> -->
+        </div>
+    </div>
+</div>
 <div class="dh-my-body">
     <!-- 배경 이미지 자리 -->
     <div class="dh-my-backgraound">
@@ -49,14 +57,6 @@
             <div>
                 <a href="{% url 'users:get_review' user.id %}">Review List</a>
             </div>
-        </div>
-    </div>
-    <hr>
-    <div class="dh-my-profile-body">
-        <div>
-            viewer
-            찜한 상품
-            최근 본 상품
         </div>
     </div>
 </div>
