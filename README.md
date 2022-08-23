@@ -20,8 +20,8 @@
   - Django
 
 #### `Front-end`
-  - HTML
-  - CSS
+  - HTML5
+  - CSS3
   - JavaScript
   
 #### `배포` 
