@@ -5,6 +5,9 @@
 
 </br>
 
+### S.A
+[상세 내용 참고](https://www.notion.so/Team-Ladder-6d5dfdecb8454b04bc0a1ffc7c5de825)
+
 ## 1. 제작 기간 & 참여 인원
 - 2022.6.4 ~ 2022.6.14  
 - 팀 프로젝트
