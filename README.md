@@ -42,14 +42,62 @@
 <br>
 
 ## 4. 핵심 트러블 슈팅
-### 4.1. 
+### 4.1. DB에 저장된 와인 검색 기능 오류
+
+- DB에 저장되어있는 와인들의 이름이 포함된 내용을 검색하였을 때, 값을 받아오지 못하는 이슈
+
+- Django 템플릿 문법의 잘못된 사용으로 값들이 불러와지지 않는 상황
+
+- 와인의 DB에서 이름에 검색어가 포함된 경우를 filter로 뽑은 후, Django 템플릿 문법으로 HTML에 보여지도록 설정
+```
+def search(request):
+        if request.method == 'POST':
+            searched = request.POST['searched']        
+            winename = WineModel.objects.filter(name__contains=searched)
+            return render(request, 'search.html', {'searched': searched, 'winename': winename})
+        else:
+            return render(request, 'search.html', {})
+```
+</br>
+
+```
+
+{% block title %}
+검색
+{% endblock %}
+{% block content %}
+
+    {% if searched %}
+        <div>
+            <div>
+                <div>
+                    <h2> " {{ searched }} "가 포함된 와인을 검색하였습니다. </h2>
+                </div>
+                <br>
+                {% for WineModel in winename %}
+                    <p>
+                        <a href="/wine/{{ WineModel.id }}" class="search-wine">- {{ WineModel.name }} {{ WineModel.year}} </a> <br>
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="search-height">
+                
+            </div>
+            {% else %}
+            <div class="search-content">
+                <br>
+                <br>
+                <h1> 찾고 있는 와인을 검색창에 입력해주세요. </h1>
+            </div>
+        </div>
+            
+    {% endif %}
+
+{% endblock %}
+```
 
 </br>
 
-## 5. 그 외 트러블 슈팅    
-### 5.1. 
-
-</br>
 
 ## 6. 회고 / 느낀점
 >프로젝트 개발 회고 글: https://hee94.tistory.com/41 
