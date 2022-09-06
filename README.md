@@ -39,6 +39,9 @@
 ### 3.2. ERD    
 ![Untitled (1)](https://user-images.githubusercontent.com/104430302/186120969-11632428-2828-459d-99b9-84453c76b66d.png)
 
+### 3.3. API
+![ladder_to_wine_API](https://user-images.githubusercontent.com/104430302/188553104-0de4ff5f-a2e3-45d8-9b7b-1d5a5221b60d.PNG)
+
 <br>
 
 ## 4. 핵심 트러블 슈팅
